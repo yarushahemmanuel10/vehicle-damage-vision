@@ -1,0 +1,22 @@
+# --- Dataset: never commit images (CarDD licence forbids redistribution) ---
+# Leading "/" = only the top-level data folder, not src/vdv/data (our code)
+/data/
+*.jpg
+*.jpeg
+/outputs/figures_private/
+
+# --- Model weights: large files, kept on Google Drive ---
+/outputs/checkpoints/
+*.pt
+*.pth
+*.ckpt
+
+# --- Python / Jupyter clutter ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg-info/
+
+# --- OS ---
+.DS_Store
