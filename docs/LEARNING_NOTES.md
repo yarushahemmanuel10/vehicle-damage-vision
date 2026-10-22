@@ -13,3 +13,11 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **`.gitignore` patterns.** `data/` matches a folder named `data` at any depth; `/data/` matches only the one at the repo root. Always check `git status` to see what will really be committed.
 
 **Least-privilege tokens.** The GitHub token can only read and write this one repo and expires in 30 days. It lives in Colab Secrets, not in the code, so it never appears in the notebook or git history.
+
+**Keeping a token out of git commands (`GIT_ASKPASS`).** When git needs a password and cannot ask interactively, it runs the program named in `GIT_ASKPASS` and uses what it prints. Our script prints the token from an environment variable that exists only for the one push command, so the token never appears in a URL, a command, `.git/config` or any output.
+
+**Pinning versions.** `requirements.txt` lists exact versions (`==`) taken from what was actually installed and tested, so the project can be rebuilt identically later. A pin like `torch==2.11.0` also matches the CUDA build `2.11.0+cu130`, because the part after `+` (a "local version label") is ignored when the pin does not mention it.
+
+**Transitive dependencies.** Packages need other packages: imagehash needs PyWavelets and scipy. Pinning these too means a future install cannot quietly pull in different versions.
+
+**Editable install (`pip install -e .`).** This installs our own `src/vdv` package by linking to the source folder rather than copying it, so code changes are picked up without reinstalling. Any script can then write `from vdv.data import ...` regardless of which folder it runs from.

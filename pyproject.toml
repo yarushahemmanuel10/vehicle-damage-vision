@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vdv"
+version = "0.1.0"
+description = "Vehicle Damage Vision: damage classification and detection with PyTorch"
+requires-python = ">=3.11"
+# Dependencies are pinned in requirements.txt, not here, so that installing
+# this package never triggers a reinstall of PyTorch on Colab.
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -59,3 +59,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** treat portfolio use as commercial and ask the PIC Lab for explicit permission; switch to a CC BY 4.0 dataset.
 - **Reason:** The project's purpose is my own learning for the KTP. That is educational use, which the licence permits and encourages. Showing my own code and results is not distributing the dataset.
 - **Decided by:** me
+
+### D-009 · Evaluation libraries: pycocotools and scikit-learn, no torchmetrics
+- **Date:** 2026-10-22
+- **Choice:** pycocotools (the official COCO evaluator) for detection: mAP@50, mAP@50:95, AP by object size and per-class AP. scikit-learn for classification metrics; numpy for bootstrap confidence intervals.
+- **Alternatives:** torchmetrics (a PyTorch wrapper offering COCO-style mAP and classification metrics).
+- **Reason:** Most likely the same evaluator used for the CarDD paper baselines, which keeps that comparison fair. Already installed, covers AP by object size, and avoids one dependency. Trade-off: I write the converter from model predictions to COCO JSON myself, so I know exactly what is scored.
+- **Decided by:** AI proposed / I accepted
