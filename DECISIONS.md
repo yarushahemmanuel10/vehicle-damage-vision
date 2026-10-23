@@ -53,9 +53,105 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** I run and review every block myself in one environment. This avoids version mismatches between my Intel Mac (limited to older PyTorch builds) and Colab. It replaces the original local-CPU-test plan.
 - **Decided by:** me
 
+- **Amendment (2026-10-23):** Any later `pip install` must use `-c /content/constraints.txt`, so no package can change PyTorch. If the start-of-session torch check fails, the fallback is to stay on Colab and install the tested build (`torch==2.11.0+cu130`, `torchvision==0.26.0+cu130`) from PyTorch's own cu130 package index. If that build cannot run on Colab's GPU driver, stop and decide again before any training.
+- **Amendment decided by:** me
+
 ### D-008 · Licence: using CarDD for this project counts as educational use
 - **Date:** 2026-10-22
 - **Choice:** I use CarDD only to educate myself: to learn PyTorch, transfer learning, object detection and vision transformers, the skills the KTP role requires. The code, metrics and write-up may be shown in my job application. No dataset images are redistributed (D-005), no commercial system is tested, and CarDD would not be used in any actual KTP or company work without the PIC Lab's authorisation.
 - **Alternatives:** treat portfolio use as commercial and ask the PIC Lab for explicit permission; switch to a CC BY 4.0 dataset.
 - **Reason:** The project's purpose is my own learning for the KTP. That is educational use, which the licence permits and encourages. Showing my own code and results is not distributing the dataset.
+- **Decided by:** me
+
+### D-009 · Evaluation libraries: pycocotools and scikit-learn, no torchmetrics
+- **Date:** 2026-10-22
+- **Choice:** pycocotools (the official COCO evaluator) for detection: mAP@50, mAP@50:95, AP by object size and per-class AP. scikit-learn for classification metrics; numpy for bootstrap confidence intervals.
+- **Alternatives:** torchmetrics (a PyTorch wrapper offering COCO-style mAP and classification metrics).
+- **Reason:** Most likely the same evaluator used for the CarDD paper baselines, which keeps that comparison fair. Already installed, covers AP by object size, and avoids one dependency. Trade-off: I write the converter from model predictions to COCO JSON myself, so I know exactly what is scored.
+- **Decided by:** AI proposed / I accepted
+
+### D-010 · Seeds and run-to-run variation
+- **Date:** 2026-10-23
+- **Choice:**
+  - Three seeds per ResNet-18 run (scratch, frozen, fine-tune).
+  - cuDNN deterministic mode off; seed variation is measured instead.
+  - ViT run: 1 seed, or 3 if the timing allows.
+  - The A6 smoke test times one full training epoch before the run budget is fixed.
+  - Report mean ± standard deviation across seeds, on validation and test.
+  - Seed 42 is the model carried forward to the review-threshold table, test examples and Grad-CAM. The other seeds only measure variation.
+  - If time is short: cut from 3 seeds to 2, then to 1 with the limitation stated.
+- **Alternatives:** one seed per run; deterministic mode on.
+- **Reason:** Seed variation shows whether the gaps between methods are real. Bootstrap confidence intervals separately measure test-set sampling uncertainty.
+- **Decided by:** me
+
+### D-011 · CarDD_SOD folder: present but out of scope
+- **Date:** 2026-10-23
+- **Choice:** Use only `CarDD_COCO`. The `CarDD_SOD` folder (salient object detection: copies of the same images with binary masks and edge maps) is not used.
+- **Alternatives:** use the SOD masks for segmentation.
+- **Reason:** Both tasks need a class label per damage, which only the COCO annotations provide. COCO also contains segmentation masks for every annotation, for the Mask R-CNN stretch goal. SOD images are copies, so reading them would double-count images.
+- **Decided by:** AI proposed / I accepted
+
+### D-012 · image_info.xlsx: subgroup analysis and cross-check only
+- **Date:** 2026-10-23
+- **Choice:**
+  - Use `image_info.xlsx` for subgroup error analysis and as a consistency cross-check only, not as a model input.
+  - Bins fixed now, before any results: colour = light (white, silver, champagne) / dark (black, gray) / coloured (all other named colours, including "mixture") / unknown (blank); angle = front / side / rear / other-unknown ("inside" and blank); completeness: counts only.
+  - Report group sizes beside every subgroup figure.
+  - Pin `openpyxl==3.1.5`; strip the trailing space in the `complete or partial ` column name.
+  - Spreadsheet summary and the width/height/#instances/#categories cross-check live in `scripts/verify_data.py`, so the counts are citable.
+- **Alternatives:** leave the spreadsheet out of scope; use it as a model input.
+- **Reason:** Subgroup results (for example, by car colour or shooting angle) show where the model fails in ways a repair business would recognise. Fixing bins before results prevents choosing groups that make results look better.
+- **Decided by:** me
+
+### D-013 · Design statistics come from the train split only
+- **Date:** 2026-10-23
+- **Choice:** Statistics used to make design choices (crop margin, minimum crop size, resize method, augmentation settings) are computed on the train split only. The test split stays untouched until the final evaluation (A12); validation is used only for model selection and the review threshold.
+- **Alternatives:** compute design statistics on all splits.
+- **Reason:** Choices tuned on test data, even indirectly through its statistics, make the final test result optimistic.
+- **Decided by:** AI proposed / I accepted
+
+### D-014 · Crop margin: 10% of box size on each side
+- **Date:** 2026-10-23
+- **Choice:** Add 10% of the box width (left and right) and 10% of the box height (top and bottom), clipped to the image. A2 must report how many final crops contain a box of another class, measured on the final crop window (margin + 64 px minimum window + aspect cap), not the margin alone.
+- **Alternatives:** no margin; 25%; a fixed number of pixels.
+- **Reason:** On the train contact sheet, 10% adds a little edge context, while 25% pulls in noticeably more surrounding car body. 38% of train boxes already overlap a box of another class (`box_stats_train.json`), so context is kept small.
+- **Decided by:** me
+
+### D-015 · Minimum crop window: 64 px per side, all splits, nothing dropped
+- **Date:** 2026-10-23
+- **Choice:** After the margin, grow any side shorter than 64 px to exactly 64 px around the box centre, using real image context (shifted to stay inside the image). Applied to train, val and test; no boxes are dropped. A test checks the result is exactly 64 px.
+- **Alternatives:** drop boxes with a shorter side below a threshold; apply the minimum to train only.
+- **Reason:** Dropping boxes with a shorter side below 32 px would remove 27% of train cracks (`box_stats_train.json`). On the contact sheet, the 64 px window made the smallest cracks recognisable. Applying it to all splits keeps val/test results representative of tiny damage instead of removing the hardest cases.
+- **Decided by:** me; minimum-window option AI-proposed
+
+### D-016 · Resize: aspect-capped expansion, then pad to 224 × 224
+- **Date:** 2026-10-23
+- **Choice:** After margin and minimum window, grow the shorter side with real image context until long side / short side ≤ 3 (shifted to stay inside the image), then pad to 224 × 224 with mid-grey. Crops with aspect ≤ 3 are unchanged by this step. Verify on A2 sample crops: #5727, #1984 and the typical boxes.
+- **Alternatives:** stretch; pad only; full square-expand; pad normally and square-expand above aspect 4.6.
+- **Reason:** On the train contact sheet, stretch destroyed #5727 and #1984; pad left them as hairlines; full square-expand pulled a tail light into crack #1984. Aspect-capped expansion keeps real context but bounds it, leaves typical boxes unchanged, and avoids the jump at a single threshold and the context risk of a full square.
+- **Decided by:** me; aspect-capped option AI-proposed
+
+### D-017 · Crop storage, caching and manifest key
+- **Date:** 2026-10-23
+- **Choice:**
+  - Crops are built once per crop-code version as PNG (aspect ratio kept, long side 224 px, unpadded) and zipped without compression to Drive as `crops_<version>.zip`; the start-of-session cell unzips the matching version.
+  - The version is the hand-set `CROP_VERSION` plus a hash of `src/vdv/data/crops.py` and `scripts/build_crops.py`; `check_crop_cache()` refuses a cache built by different code.
+  - Augmentation and padding to 224 × 224 happen at load time.
+  - The crop manifest (`splits/crops_manifest.csv`) is keyed on (split, ann_id): image IDs are unique across the three annotation files, but annotation IDs are not (1744 are shared).
+- **Alternatives:** make crops on the fly every epoch; store padded 224 × 224 crops; key on ann_id alone.
+- **Reason:** Training reads small files instead of decoding full photos every epoch across 9 to 12 runs. The code hash makes it impossible to train silently on crops built by older rules. Storing unpadded crops lets augmentation such as rotation happen before padding.
+- **Decided by:** me
+
+### D-018 · Validation and test crop statistics are reported only
+- **Date:** 2026-10-23
+- **Choice:** `crops_summary.json` reports crop counts and flags for every split, including test. The D-014 to D-016 crop rules are fixed and are not adjusted on test-split evidence (D-013).
+- **Alternatives:** report train statistics only.
+- **Reason:** Reporting all splits documents the data; adjusting rules on test evidence would make the final test result optimistic.
+- **Decided by:** me
+
+### D-019 · Subgroup analysis: clean vs contaminated crops
+- **Date:** 2026-10-23
+- **Choice:** Report the classification metrics on val and test separately for crops with `other_class_ge50` = 1 (at least half of an other-class box inside the final crop window) and = 0. Reported overall only, not per class, with group sizes beside every figure. Never used for model selection or the review threshold.
+- **Alternatives:** no subgroup analysis; per-class subgroups; a different flag (`other_class_any`, `other_class_ge25`).
+- **Reason:** 772 of 6211 train crops (12.4%) contain at least half of an other-class box, so the classifier could learn from surrounding damage instead of the labelled one. Fixed before any results.
 - **Decided by:** me

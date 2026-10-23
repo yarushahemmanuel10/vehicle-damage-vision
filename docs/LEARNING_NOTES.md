@@ -13,3 +13,39 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **`.gitignore` patterns.** `data/` matches a folder named `data` at any depth; `/data/` matches only the one at the repo root. Always check `git status` to see what will really be committed.
 
 **Least-privilege tokens.** The GitHub token can only read and write this one repo and expires in 30 days. It lives in Colab Secrets, not in the code, so it never appears in the notebook or git history.
+
+**Keeping a token out of git commands (`GIT_ASKPASS`).** When git needs a password and cannot ask interactively, it runs the program named in `GIT_ASKPASS` and uses what it prints. Our script prints the token from an environment variable that exists only for the one push command, so the token never appears in a URL, a command, `.git/config` or any output.
+
+**Pinning versions.** `requirements.txt` lists exact versions (`==`) taken from what was actually installed and tested, so the project can be rebuilt identically later. A pin like `torch==2.11.0` also matches the CUDA build `2.11.0+cu130`, because the part after `+` (a "local version label") is ignored when the pin does not mention it.
+
+**Transitive dependencies.** Packages need other packages: imagehash needs PyWavelets and scipy. Pinning these too means a future install cannot quietly pull in different versions.
+
+**Editable install (`pip install -e .`).** This installs our own `src/vdv` package by linking to the source folder rather than copying it, so code changes are picked up without reinstalling. Any script can then write `from vdv.data import ...` regardless of which folder it runs from.
+
+**Constraints file (`pip install -c`).** A constraints file says "if anything needs this package, it must be exactly this version", but never asks pip to install anything. We use it to stop any other package from swapping out Colab's tested PyTorch build.
+
+**Failing loudly.** The start-of-session cell stops with an error if `git clone` or `git pull` fails, or if PyTorch is not the tested build. Carrying on silently could mean training on old code or a different environment without noticing.
+
+**Random seeds.** Training uses randomness everywhere: starting weights, data order, augmentations. `set_seed()` fixes Python's, NumPy's and PyTorch's random generators, so differences between runs come from the method, not from luck.
+
+**Deterministic mode.** Even with seeds fixed, some GPU operations pick the fastest algorithm each time, which can change results slightly. `deterministic=True` reduces this run-to-run variation (it does not guarantee identical results) and makes training slower.
+
+**pytest.** Any function whose name starts with `test_` in the `tests/` folder runs automatically with `python -m pytest`. A test passes if its `assert` statements hold.
+
+**COCO box format.** COCO stores each box as `[x, y, width, height]`: the top-left corner plus size, in pixels. torchvision's detectors expect `[x1, y1, x2, y2]` (two corners), so boxes must be converted before detection training.
+
+**COCO masks.** Each annotation can also carry a `segmentation`: either polygons (lists of x, y points; at least 3 points to form a shape) or RLE, a compressed pixel mask. Mask R-CNN trains on these.
+
+**EXIF orientation.** Photos can store pixels sideways with a tag telling viewers to rotate them. OpenCV's default `imread` applies the tag; some annotation tools ignore it. If the two disagree, boxes land in the wrong place. CarDD has no such tags, so this cannot happen here.
+
+**Fixing subgroups before results.** Grouping categories (such as car colours) after seeing results makes it easy, even unintentionally, to pick groups that tell a nicer story. Fixing the bins first keeps the subgroup analysis honest.
+
+**Box area vs mask area.** A box is the smallest rectangle around a damage; the mask is the damage's actual shape. A thin diagonal crack can have a large box but a tiny mask. pycocotools' "AP small / medium / large" uses the mask area (the annotation's `area` field), so many cracks count as "small" even when their boxes are not.
+
+**Aspect ratio.** Long side divided by short side: 1 is square, 10 is ten times longer than wide. Networks need a fixed square input, so very elongated crops must be stretched (distorts the shape), padded (wastes most of the input) or expanded with real context.
+
+**Interpolation.** Resizing invents or merges pixels. `INTER_AREA` averages pixels and is best for shrinking; `INTER_LINEAR` blends neighbours and is the usual choice for enlarging. Enlarging a tiny crop cannot add detail: it only makes it blurrier.
+
+**BGR vs RGB.** OpenCV loads colour images with the channels in the order blue, green, red (BGR); PyTorch, torchvision and pre-trained models expect red, green, blue (RGB). Pre-trained weights were learned with ImageNet's per-channel RGB mean and standard deviation, so a BGR image normalised with RGB statistics feeds the model swapped colours: training may still run, but transfer learning works worse, and a red tail light can look blue to the model. The A6 data loader converts BGR to RGB (`cv2.cvtColor(img, cv2.COLOR_BGR2RGB)`) before ImageNet normalisation, and a test checks it on a synthetic pure-red image.
+
+**Code-hash versioning.** The crop cache's version includes a hash of the crop rules and the build script, so editing either one changes the version and the old cache is refused. It finds the build script relative to the package source, which relies on the editable install (`pip install -e .`).
