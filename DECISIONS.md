@@ -102,3 +102,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** leave the spreadsheet out of scope; use it as a model input.
 - **Reason:** Subgroup results (for example, by car colour or shooting angle) show where the model fails in ways a repair business would recognise. Fixing bins before results prevents choosing groups that make results look better.
 - **Decided by:** me
+
+### D-013 · Design statistics come from the train split only
+- **Date:** 2026-10-23
+- **Choice:** Statistics used to make design choices (crop margin, minimum crop size, resize method, augmentation settings) are computed on the train split only. The test split stays untouched until the final evaluation (A12); validation is used only for model selection and the review threshold.
+- **Alternatives:** compute design statistics on all splits.
+- **Reason:** Choices tuned on test data, even indirectly through its statistics, make the final test result optimistic.
+- **Decided by:** AI proposed / I accepted
