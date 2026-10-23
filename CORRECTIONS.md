@@ -34,3 +34,9 @@ Every time something the AI assistant produced was wrong and was caught and fixe
 - **What was wrong:** The S4 draft pasted the filtered requirements straight into the `%pip` command line, and filtered on the unstripped line, so an indented `torch` line or comment could slip through the filter. Expanding a list into the command line is also harder to read and reproduce.
 - **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
 - **Fix:** The filtered list is written to `/content/reqs_session.txt`, filtering on the stripped line and the parsed package name, and installed with `pip install -r`.
+
+### C-006 · Crop cache check accepted an incomplete unzip
+- **Date:** 2026-10-23
+- **What was wrong:** `check_crop_cache()` only compared the version in `meta.json`. The zip stores `meta.json` before the image folders, so an interrupted unzip could leave a valid `meta.json` with missing PNGs, and training would have started on an incomplete crop set.
+- **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
+- **Fix:** The check also counts the PNGs on disk and refuses the cache unless the count equals `meta["n_crops"]`; a test covers "valid meta, missing PNGs → refused". The fix changed the crop-code version, so the crops were rebuilt; all counts are identical apart from the version.

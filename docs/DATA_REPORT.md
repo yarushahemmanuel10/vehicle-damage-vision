@@ -34,7 +34,7 @@ All numbers from `outputs/metrics/box_stats_train.json` (`python scripts/box_sta
 - **Context risk:** full square-expansion of crack #1984 pulled a tail light into the crop, an object resembling another class (`lamp broken`). Context added by the margin, minimum window and aspect cap should be checked for similar effects.
 - **Dent/scratch ambiguity:** some boxes labelled `dent` look like scratches (#1747, #1748, and long thin "dents" such as #355 and #433). Expect dent/scratch confusion; it may reflect genuinely ambiguous damage or label noise.
 
-## A2 · Crops (version `v1-737b57ce`)
+## A2 · Crops (version `v1-d432e94e`)
 
 All numbers from `outputs/metrics/crops_summary.json` (`python scripts/build_crops.py`). Rules: D-014 margin 0.1, D-015 minimum window 64 px, D-016 aspect cap 3.0; stored with long side 224 px.
 

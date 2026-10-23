@@ -84,11 +84,21 @@ def test_pad_to_square_centres_content():
 
 
 def test_crop_cache_version_check(tmp_path):
-    (tmp_path / "meta.json").write_text(json.dumps({"version": crop_code_version()}))
-    check_crop_cache(tmp_path)                        # matching version: accepted
-    (tmp_path / "meta.json").write_text(json.dumps({"version": "v0-old"}))
+    (tmp_path / "meta.json").write_text(json.dumps({"version": crop_code_version(), "n_crops": 0}))
+    check_crop_cache(tmp_path)                        # matching version, complete: accepted
+    (tmp_path / "meta.json").write_text(json.dumps({"version": "v0-old", "n_crops": 0}))
     with pytest.raises(RuntimeError):
         check_crop_cache(tmp_path)                    # mismatched version: refused
+
+
+def test_crop_cache_refuses_missing_pngs(tmp_path):
+    (tmp_path / "meta.json").write_text(json.dumps({"version": crop_code_version(), "n_crops": 2}))
+    (tmp_path / "train" / "dent").mkdir(parents=True)
+    (tmp_path / "train" / "dent" / "1.png").write_bytes(b"x")
+    with pytest.raises(RuntimeError):
+        check_crop_cache(tmp_path)                    # valid meta, one PNG missing: refused
+    (tmp_path / "train" / "dent" / "2.png").write_bytes(b"x")
+    assert check_crop_cache(tmp_path)["n_crops"] == 2 # complete: accepted
 
 
 def test_version_hash_tracks_rules_and_build_script(tmp_path):

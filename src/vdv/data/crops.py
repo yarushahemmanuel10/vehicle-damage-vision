@@ -97,9 +97,15 @@ def pad_to_square(img, size=STORE_LONG_SIDE, value=PAD_VALUE):
 
 
 def check_crop_cache(crop_dir):
-    """Refuse a crop folder built by different crop code. Returns its meta.json contents."""
-    meta = json.loads((Path(crop_dir) / "meta.json").read_text())
+    """Refuse a crop folder built by different crop code, or an incomplete one (for example an
+    interrupted unzip: meta.json is stored before the image folders). Returns its meta.json contents."""
+    crop_dir = Path(crop_dir)
+    meta = json.loads((crop_dir / "meta.json").read_text())
     if meta.get("version") != crop_code_version():
         raise RuntimeError(f"Crop cache {crop_dir} is version {meta.get('version')}, but the code is "
                            f"{crop_code_version()}: rebuild with scripts/build_crops.py")
+    n_png = sum(1 for _ in crop_dir.rglob("*.png"))
+    if n_png != meta.get("n_crops"):
+        raise RuntimeError(f"Crop cache {crop_dir} has {n_png} PNGs but meta.json lists "
+                           f"{meta.get('n_crops')}: incomplete copy, unzip again or rebuild")
     return meta
