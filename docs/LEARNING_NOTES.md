@@ -21,3 +21,13 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Transitive dependencies.** Packages need other packages: imagehash needs PyWavelets and scipy. Pinning these too means a future install cannot quietly pull in different versions.
 
 **Editable install (`pip install -e .`).** This installs our own `src/vdv` package by linking to the source folder rather than copying it, so code changes are picked up without reinstalling. Any script can then write `from vdv.data import ...` regardless of which folder it runs from.
+
+**Constraints file (`pip install -c`).** A constraints file says "if anything needs this package, it must be exactly this version", but never asks pip to install anything. We use it to stop any other package from swapping out Colab's tested PyTorch build.
+
+**Failing loudly.** The start-of-session cell stops with an error if `git clone` or `git pull` fails, or if PyTorch is not the tested build. Carrying on silently could mean training on old code or a different environment without noticing.
+
+**Random seeds.** Training uses randomness everywhere: starting weights, data order, augmentations. `set_seed()` fixes Python's, NumPy's and PyTorch's random generators, so differences between runs come from the method, not from luck.
+
+**Deterministic mode.** Even with seeds fixed, some GPU operations pick the fastest algorithm each time, which can change results slightly. `deterministic=True` reduces this run-to-run variation (it does not guarantee identical results) and makes training slower.
+
+**pytest.** Any function whose name starts with `test_` in the `tests/` folder runs automatically with `python -m pytest`. A test passes if its `assert` statements hold.

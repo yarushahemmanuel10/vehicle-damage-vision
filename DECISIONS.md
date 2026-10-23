@@ -53,6 +53,9 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** I run and review every block myself in one environment. This avoids version mismatches between my Intel Mac (limited to older PyTorch builds) and Colab. It replaces the original local-CPU-test plan.
 - **Decided by:** me
 
+- **Amendment (2026-10-23):** Any later `pip install` must use `-c /content/constraints.txt`, so no package can change PyTorch. If the start-of-session torch check fails, the fallback is to stay on Colab and install the tested build (`torch==2.11.0+cu130`, `torchvision==0.26.0+cu130`) from PyTorch's own cu130 package index. If that build cannot run on Colab's GPU driver, stop and decide again before any training.
+- **Amendment decided by:** me
+
 ### D-008 · Licence: using CarDD for this project counts as educational use
 - **Date:** 2026-10-22
 - **Choice:** I use CarDD only to educate myself: to learn PyTorch, transfer learning, object detection and vision transformers, the skills the KTP role requires. The code, metrics and write-up may be shown in my job application. No dataset images are redistributed (D-005), no commercial system is tested, and CarDD would not be used in any actual KTP or company work without the PIC Lab's authorisation.
