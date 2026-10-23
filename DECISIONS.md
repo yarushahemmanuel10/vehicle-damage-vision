@@ -69,3 +69,17 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** torchmetrics (a PyTorch wrapper offering COCO-style mAP and classification metrics).
 - **Reason:** Most likely the same evaluator used for the CarDD paper baselines, which keeps that comparison fair. Already installed, covers AP by object size, and avoids one dependency. Trade-off: I write the converter from model predictions to COCO JSON myself, so I know exactly what is scored.
 - **Decided by:** AI proposed / I accepted
+
+### D-010 · Seeds and run-to-run variation
+- **Date:** 2026-10-23
+- **Choice:**
+  - Three seeds per ResNet-18 run (scratch, frozen, fine-tune).
+  - cuDNN deterministic mode off; seed variation is measured instead.
+  - ViT run: 1 seed, or 3 if the timing allows.
+  - The A6 smoke test times one full training epoch before the run budget is fixed.
+  - Report mean ± standard deviation across seeds, on validation and test.
+  - Seed 42 is the model carried forward to the review-threshold table, test examples and Grad-CAM. The other seeds only measure variation.
+  - If time is short: cut from 3 seeds to 2, then to 1 with the limitation stated.
+- **Alternatives:** one seed per run; deterministic mode on.
+- **Reason:** Seed variation shows whether the gaps between methods are real. Bootstrap confidence intervals separately measure test-set sampling uncertainty.
+- **Decided by:** me
