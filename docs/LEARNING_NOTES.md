@@ -45,3 +45,7 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Aspect ratio.** Long side divided by short side: 1 is square, 10 is ten times longer than wide. Networks need a fixed square input, so very elongated crops must be stretched (distorts the shape), padded (wastes most of the input) or expanded with real context.
 
 **Interpolation.** Resizing invents or merges pixels. `INTER_AREA` averages pixels and is best for shrinking; `INTER_LINEAR` blends neighbours and is the usual choice for enlarging. Enlarging a tiny crop cannot add detail: it only makes it blurrier.
+
+**BGR vs RGB.** OpenCV loads colour images with the channels in the order blue, green, red (BGR); PyTorch, torchvision and pre-trained models expect red, green, blue (RGB). Pre-trained weights were learned with ImageNet's per-channel RGB mean and standard deviation, so a BGR image normalised with RGB statistics feeds the model swapped colours: training may still run, but transfer learning works worse, and a red tail light can look blue to the model. The A6 data loader converts BGR to RGB (`cv2.cvtColor(img, cv2.COLOR_BGR2RGB)`) before ImageNet normalisation, and a test checks it on a synthetic pure-red image.
+
+**Code-hash versioning.** The crop cache's version includes a hash of the crop rules and the build script, so editing either one changes the version and the old cache is refused. It finds the build script relative to the package source, which relies on the editable install (`pip install -e .`).

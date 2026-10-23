@@ -1,0 +1,213 @@
+{
+  "version": "v1-737b57ce",
+  "n_crops": 8740,
+  "ids": {
+    "annotation_ids_unique_across_splits": false,
+    "annotation_ids_shared_between_splits": 1744,
+    "image_ids_unique_across_splits": true,
+    "image_ids_shared_between_splits": 0
+  },
+  "parameters": {
+    "margin": 0.1,
+    "min_side_px": 64,
+    "max_aspect": 3.0,
+    "store_long_side_px": 224
+  },
+  "per_split": {
+    "train": {
+      "crack": {
+        "crops": 651,
+        "min_window_applied": 289,
+        "aspect_capped": 51,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 368,
+        "other_class_ge25": 88,
+        "other_class_ge50": 35
+      },
+      "dent": {
+        "crops": 1806,
+        "min_window_applied": 111,
+        "aspect_capped": 93,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 959,
+        "other_class_ge25": 502,
+        "other_class_ge50": 295
+      },
+      "glass shatter": {
+        "crops": 475,
+        "min_window_applied": 0,
+        "aspect_capped": 15,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 63,
+        "other_class_ge25": 50,
+        "other_class_ge50": 42
+      },
+      "lamp broken": {
+        "crops": 494,
+        "min_window_applied": 3,
+        "aspect_capped": 22,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 375,
+        "other_class_ge25": 250,
+        "other_class_ge50": 160
+      },
+      "scratch": {
+        "crops": 2560,
+        "min_window_applied": 332,
+        "aspect_capped": 416,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 963,
+        "other_class_ge25": 393,
+        "other_class_ge50": 225
+      },
+      "tire flat": {
+        "crops": 225,
+        "min_window_applied": 1,
+        "aspect_capped": 1,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 36,
+        "other_class_ge25": 23,
+        "other_class_ge50": 15
+      },
+      "ALL": {
+        "crops": 6211,
+        "min_window_applied": 736,
+        "aspect_capped": 598,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 2764,
+        "other_class_ge25": 1306,
+        "other_class_ge50": 772
+      }
+    },
+    "val": {
+      "crack": {
+        "crops": 177,
+        "min_window_applied": 83,
+        "aspect_capped": 18,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 107,
+        "other_class_ge25": 30,
+        "other_class_ge50": 16
+      },
+      "dent": {
+        "crops": 501,
+        "min_window_applied": 27,
+        "aspect_capped": 26,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 272,
+        "other_class_ge25": 139,
+        "other_class_ge50": 85
+      },
+      "glass shatter": {
+        "crops": 135,
+        "min_window_applied": 0,
+        "aspect_capped": 2,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 19,
+        "other_class_ge25": 15,
+        "other_class_ge50": 9
+      },
+      "lamp broken": {
+        "crops": 141,
+        "min_window_applied": 1,
+        "aspect_capped": 6,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 105,
+        "other_class_ge25": 63,
+        "other_class_ge50": 43
+      },
+      "scratch": {
+        "crops": 728,
+        "min_window_applied": 71,
+        "aspect_capped": 136,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 301,
+        "other_class_ge25": 120,
+        "other_class_ge50": 75
+      },
+      "tire flat": {
+        "crops": 62,
+        "min_window_applied": 0,
+        "aspect_capped": 0,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 12,
+        "other_class_ge25": 4,
+        "other_class_ge50": 0
+      },
+      "ALL": {
+        "crops": 1744,
+        "min_window_applied": 182,
+        "aspect_capped": 188,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 816,
+        "other_class_ge25": 371,
+        "other_class_ge50": 228
+      }
+    },
+    "test": {
+      "crack": {
+        "crops": 70,
+        "min_window_applied": 32,
+        "aspect_capped": 10,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 37,
+        "other_class_ge25": 10,
+        "other_class_ge50": 1
+      },
+      "dent": {
+        "crops": 236,
+        "min_window_applied": 11,
+        "aspect_capped": 17,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 97,
+        "other_class_ge25": 51,
+        "other_class_ge50": 29
+      },
+      "glass shatter": {
+        "crops": 71,
+        "min_window_applied": 0,
+        "aspect_capped": 6,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 12,
+        "other_class_ge25": 6,
+        "other_class_ge50": 5
+      },
+      "lamp broken": {
+        "crops": 69,
+        "min_window_applied": 3,
+        "aspect_capped": 3,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 46,
+        "other_class_ge25": 22,
+        "other_class_ge50": 13
+      },
+      "scratch": {
+        "crops": 307,
+        "min_window_applied": 27,
+        "aspect_capped": 67,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 102,
+        "other_class_ge25": 43,
+        "other_class_ge50": 24
+      },
+      "tire flat": {
+        "crops": 32,
+        "min_window_applied": 0,
+        "aspect_capped": 0,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 5,
+        "other_class_ge25": 4,
+        "other_class_ge50": 3
+      },
+      "ALL": {
+        "crops": 785,
+        "min_window_applied": 73,
+        "aspect_capped": 103,
+        "aspect_cap_incomplete": 0,
+        "other_class_any": 299,
+        "other_class_ge25": 136,
+        "other_class_ge50": 75
+      }
+    }
+  }
+}

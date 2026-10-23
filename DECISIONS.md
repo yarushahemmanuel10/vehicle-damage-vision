@@ -130,3 +130,28 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** stretch; pad only; full square-expand; pad normally and square-expand above aspect 4.6.
 - **Reason:** On the train contact sheet, stretch destroyed #5727 and #1984; pad left them as hairlines; full square-expand pulled a tail light into crack #1984. Aspect-capped expansion keeps real context but bounds it, leaves typical boxes unchanged, and avoids the jump at a single threshold and the context risk of a full square.
 - **Decided by:** me; aspect-capped option AI-proposed
+
+### D-017 · Crop storage, caching and manifest key
+- **Date:** 2026-10-23
+- **Choice:**
+  - Crops are built once per crop-code version as PNG (aspect ratio kept, long side 224 px, unpadded) and zipped without compression to Drive as `crops_<version>.zip`; the start-of-session cell unzips the matching version.
+  - The version is the hand-set `CROP_VERSION` plus a hash of `src/vdv/data/crops.py` and `scripts/build_crops.py`; `check_crop_cache()` refuses a cache built by different code.
+  - Augmentation and padding to 224 × 224 happen at load time.
+  - The crop manifest (`splits/crops_manifest.csv`) is keyed on (split, ann_id): image IDs are unique across the three annotation files, but annotation IDs are not (1744 are shared).
+- **Alternatives:** make crops on the fly every epoch; store padded 224 × 224 crops; key on ann_id alone.
+- **Reason:** Training reads small files instead of decoding full photos every epoch across 9 to 12 runs. The code hash makes it impossible to train silently on crops built by older rules. Storing unpadded crops lets augmentation such as rotation happen before padding.
+- **Decided by:** me
+
+### D-018 · Validation and test crop statistics are reported only
+- **Date:** 2026-10-23
+- **Choice:** `crops_summary.json` reports crop counts and flags for every split, including test. The D-014 to D-016 crop rules are fixed and are not adjusted on test-split evidence (D-013).
+- **Alternatives:** report train statistics only.
+- **Reason:** Reporting all splits documents the data; adjusting rules on test evidence would make the final test result optimistic.
+- **Decided by:** me
+
+### D-019 · Subgroup analysis: clean vs contaminated crops
+- **Date:** 2026-10-23
+- **Choice:** Report the classification metrics on val and test separately for crops with `other_class_ge50` = 1 (at least half of an other-class box inside the final crop window) and = 0. Reported overall only, not per class, with group sizes beside every figure. Never used for model selection or the review threshold.
+- **Alternatives:** no subgroup analysis; per-class subgroups; a different flag (`other_class_any`, `other_class_ge25`).
+- **Reason:** 772 of 6211 train crops (12.4%) contain at least half of an other-class box, so the classifier could learn from surrounding damage instead of the labelled one. Fixed before any results.
+- **Decided by:** me

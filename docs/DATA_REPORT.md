@@ -33,3 +33,15 @@ All numbers from `outputs/metrics/box_stats_train.json` (`python scripts/box_sta
 
 - **Context risk:** full square-expansion of crack #1984 pulled a tail light into the crop, an object resembling another class (`lamp broken`). Context added by the margin, minimum window and aspect cap should be checked for similar effects.
 - **Dent/scratch ambiguity:** some boxes labelled `dent` look like scratches (#1747, #1748, and long thin "dents" such as #355 and #433). Expect dent/scratch confusion; it may reflect genuinely ambiguous damage or label noise.
+
+## A2 · Crops (version `v1-737b57ce`)
+
+All numbers from `outputs/metrics/crops_summary.json` (`python scripts/build_crops.py`). Rules: D-014 margin 0.1, D-015 minimum window 64 px, D-016 aspect cap 3.0; stored with long side 224 px.
+
+- **Crops:** 8740 (train 6211, val 1744, test 785), one per annotation.
+- **Train, minimum window applied:** 736 crops, including 289 of 651 cracks (44.4%).
+- **Train, aspect cap applied:** 598 crops; cap not reachable at the image edge: 0.
+- **Train, another-class box inside the final window (share of that box inside the window):** any 2764 (44.5%), at least 25% 1306 (21.0%), at least 50% 772 (12.4%). Highest at 50% or more: lamp broken, 160 of 494 (32.4%).
+- This contamination measure (share of the other box inside the window) is not comparable with the box-statistics overlap above (share of this box covered by another).
+- **IDs:** annotation IDs are not unique across splits (1744 shared); image IDs are. The manifest is keyed on (split, ann_id).
+- The manifest is provisional until A4 (after the A3 duplicate check).
