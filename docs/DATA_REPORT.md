@@ -18,3 +18,18 @@ against that file before this page is generated.
 ## For the Limitations section
 
 - **98.0% of images are partial views** (close-ups of part of a car) rather than whole vehicles. Results may not transfer to full-vehicle photos.
+
+## Box statistics (train only, D-013)
+
+All numbers from `outputs/metrics/box_stats_train.json` (`python scripts/box_stats.py`).
+
+- **Boxes:** 6211. Shorter side: median 174.0 px, 5th percentile 30.9 px, minimum 7.3 px.
+- **Shorter side below 32 px:** 333 boxes, of which 174 are cracks (26.7% of train cracks).
+- **Aspect ratio (long / short):** median 1.61, 95th percentile 4.6, maximum 25.66.
+- **Overlap with another class:** 2354 boxes share pixels with a box of a different class; 478 are at least half covered by one.
+- **COCO size buckets:** by box area {'small': 111, 'medium': 942, 'large': 5158}; by mask area {'small': 321, 'medium': 1424, 'large': 4466}.
+
+## For the error analysis (observed on the train contact sheets)
+
+- **Context risk:** full square-expansion of crack #1984 pulled a tail light into the crop, an object resembling another class (`lamp broken`). Context added by the margin, minimum window and aspect cap should be checked for similar effects.
+- **Dent/scratch ambiguity:** some boxes labelled `dent` look like scratches (#1747, #1748, and long thin "dents" such as #355 and #433). Expect dent/scratch confusion; it may reflect genuinely ambiguous damage or label noise.

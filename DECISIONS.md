@@ -109,3 +109,24 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** compute design statistics on all splits.
 - **Reason:** Choices tuned on test data, even indirectly through its statistics, make the final test result optimistic.
 - **Decided by:** AI proposed / I accepted
+
+### D-014 · Crop margin: 10% of box size on each side
+- **Date:** 2026-10-23
+- **Choice:** Add 10% of the box width (left and right) and 10% of the box height (top and bottom), clipped to the image. A2 must report how many final crops contain a box of another class, measured on the final crop window (margin + 64 px minimum window + aspect cap), not the margin alone.
+- **Alternatives:** no margin; 25%; a fixed number of pixels.
+- **Reason:** On the train contact sheet, 10% adds a little edge context, while 25% pulls in noticeably more surrounding car body. 38% of train boxes already overlap a box of another class (`box_stats_train.json`), so context is kept small.
+- **Decided by:** me
+
+### D-015 · Minimum crop window: 64 px per side, all splits, nothing dropped
+- **Date:** 2026-10-23
+- **Choice:** After the margin, grow any side shorter than 64 px to exactly 64 px around the box centre, using real image context (shifted to stay inside the image). Applied to train, val and test; no boxes are dropped. A test checks the result is exactly 64 px.
+- **Alternatives:** drop boxes with a shorter side below a threshold; apply the minimum to train only.
+- **Reason:** Dropping boxes with a shorter side below 32 px would remove 27% of train cracks (`box_stats_train.json`). On the contact sheet, the 64 px window made the smallest cracks recognisable. Applying it to all splits keeps val/test results representative of tiny damage instead of removing the hardest cases.
+- **Decided by:** me; minimum-window option AI-proposed
+
+### D-016 · Resize: aspect-capped expansion, then pad to 224 × 224
+- **Date:** 2026-10-23
+- **Choice:** After margin and minimum window, grow the shorter side with real image context until long side / short side ≤ 3 (shifted to stay inside the image), then pad to 224 × 224 with mid-grey. Crops with aspect ≤ 3 are unchanged by this step. Verify on A2 sample crops: #5727, #1984 and the typical boxes.
+- **Alternatives:** stretch; pad only; full square-expand; pad normally and square-expand above aspect 4.6.
+- **Reason:** On the train contact sheet, stretch destroyed #5727 and #1984; pad left them as hairlines; full square-expand pulled a tail light into crack #1984. Aspect-capped expansion keeps real context but bounds it, leaves typical boxes unchanged, and avoids the jump at a single threshold and the context risk of a full square.
+- **Decided by:** me; aspect-capped option AI-proposed

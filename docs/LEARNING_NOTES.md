@@ -39,3 +39,9 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **EXIF orientation.** Photos can store pixels sideways with a tag telling viewers to rotate them. OpenCV's default `imread` applies the tag; some annotation tools ignore it. If the two disagree, boxes land in the wrong place. CarDD has no such tags, so this cannot happen here.
 
 **Fixing subgroups before results.** Grouping categories (such as car colours) after seeing results makes it easy, even unintentionally, to pick groups that tell a nicer story. Fixing the bins first keeps the subgroup analysis honest.
+
+**Box area vs mask area.** A box is the smallest rectangle around a damage; the mask is the damage's actual shape. A thin diagonal crack can have a large box but a tiny mask. pycocotools' "AP small / medium / large" uses the mask area (the annotation's `area` field), so many cracks count as "small" even when their boxes are not.
+
+**Aspect ratio.** Long side divided by short side: 1 is square, 10 is ten times longer than wide. Networks need a fixed square input, so very elongated crops must be stretched (distorts the shape), padded (wastes most of the input) or expanded with real context.
+
+**Interpolation.** Resizing invents or merges pixels. `INTER_AREA` averages pixels and is best for shrinking; `INTER_LINEAR` blends neighbours and is the usual choice for enlarging. Enlarging a tiny crop cannot add detail: it only makes it blurrier.
