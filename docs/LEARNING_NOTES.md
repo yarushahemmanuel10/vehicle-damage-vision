@@ -31,3 +31,11 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Deterministic mode.** Even with seeds fixed, some GPU operations pick the fastest algorithm each time, which can change results slightly. `deterministic=True` reduces this run-to-run variation (it does not guarantee identical results) and makes training slower.
 
 **pytest.** Any function whose name starts with `test_` in the `tests/` folder runs automatically with `python -m pytest`. A test passes if its `assert` statements hold.
+
+**COCO box format.** COCO stores each box as `[x, y, width, height]`: the top-left corner plus size, in pixels. torchvision's detectors expect `[x1, y1, x2, y2]` (two corners), so boxes must be converted before detection training.
+
+**COCO masks.** Each annotation can also carry a `segmentation`: either polygons (lists of x, y points; at least 3 points to form a shape) or RLE, a compressed pixel mask. Mask R-CNN trains on these.
+
+**EXIF orientation.** Photos can store pixels sideways with a tag telling viewers to rotate them. OpenCV's default `imread` applies the tag; some annotation tools ignore it. If the two disagree, boxes land in the wrong place. CarDD has no such tags, so this cannot happen here.
+
+**Fixing subgroups before results.** Grouping categories (such as car colours) after seeing results makes it easy, even unintentionally, to pick groups that tell a nicer story. Fixing the bins first keeps the subgroup analysis honest.

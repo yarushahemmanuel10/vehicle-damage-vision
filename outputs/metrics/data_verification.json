@@ -1,0 +1,341 @@
+{
+  "splits": {
+    "train": {
+      "n_images_json": 2816,
+      "n_images_disk": 2816,
+      "n_annotations": 6211,
+      "categories": [
+        [
+          1,
+          "dent"
+        ],
+        [
+          2,
+          "scratch"
+        ],
+        [
+          3,
+          "crack"
+        ],
+        [
+          4,
+          "glass shatter"
+        ],
+        [
+          5,
+          "lamp broken"
+        ],
+        [
+          6,
+          "tire flat"
+        ]
+      ],
+      "duplicate_names_in_json": [],
+      "duplicate_image_ids": [],
+      "missing_on_disk": [],
+      "on_disk_not_in_json": [],
+      "load_failed": [],
+      "exif_orientation_tagged": [],
+      "size_counts": {
+        "json_vs_opencv_match": 2816,
+        "json_vs_raw_match": 2816
+      },
+      "size_mismatch_files": {},
+      "opencv_swaps_with_exif_tag": 0,
+      "instances_per_category": {
+        "scratch": 2560,
+        "dent": 1806,
+        "crack": 651,
+        "lamp broken": 494,
+        "glass shatter": 475,
+        "tire flat": 225
+      },
+      "annotations_bad_category": [],
+      "annotations_bad_image_id": [],
+      "boxes_zero_area": [],
+      "boxes_tiny_overshoot": [],
+      "boxes_real_overshoot": [],
+      "max_box_overshoot_px": 0.0,
+      "annotations_with_segmentation": 6211,
+      "segmentation_types": {
+        "polygon": 6211
+      },
+      "images_without_annotations": []
+    },
+    "val": {
+      "n_images_json": 810,
+      "n_images_disk": 810,
+      "n_annotations": 1744,
+      "categories": [
+        [
+          1,
+          "dent"
+        ],
+        [
+          2,
+          "scratch"
+        ],
+        [
+          3,
+          "crack"
+        ],
+        [
+          4,
+          "glass shatter"
+        ],
+        [
+          5,
+          "lamp broken"
+        ],
+        [
+          6,
+          "tire flat"
+        ]
+      ],
+      "duplicate_names_in_json": [],
+      "duplicate_image_ids": [],
+      "missing_on_disk": [],
+      "on_disk_not_in_json": [],
+      "load_failed": [],
+      "exif_orientation_tagged": [],
+      "size_counts": {
+        "json_vs_opencv_match": 810,
+        "json_vs_raw_match": 810
+      },
+      "size_mismatch_files": {},
+      "opencv_swaps_with_exif_tag": 0,
+      "instances_per_category": {
+        "scratch": 728,
+        "dent": 501,
+        "crack": 177,
+        "lamp broken": 141,
+        "glass shatter": 135,
+        "tire flat": 62
+      },
+      "annotations_bad_category": [],
+      "annotations_bad_image_id": [],
+      "boxes_zero_area": [],
+      "boxes_tiny_overshoot": [],
+      "boxes_real_overshoot": [],
+      "max_box_overshoot_px": 0.0,
+      "annotations_with_segmentation": 1744,
+      "segmentation_types": {
+        "polygon": 1744
+      },
+      "images_without_annotations": []
+    },
+    "test": {
+      "n_images_json": 374,
+      "n_images_disk": 374,
+      "n_annotations": 785,
+      "categories": [
+        [
+          1,
+          "dent"
+        ],
+        [
+          2,
+          "scratch"
+        ],
+        [
+          3,
+          "crack"
+        ],
+        [
+          4,
+          "glass shatter"
+        ],
+        [
+          5,
+          "lamp broken"
+        ],
+        [
+          6,
+          "tire flat"
+        ]
+      ],
+      "duplicate_names_in_json": [],
+      "duplicate_image_ids": [],
+      "missing_on_disk": [],
+      "on_disk_not_in_json": [],
+      "load_failed": [],
+      "exif_orientation_tagged": [],
+      "size_counts": {
+        "json_vs_opencv_match": 374,
+        "json_vs_raw_match": 374
+      },
+      "size_mismatch_files": {},
+      "opencv_swaps_with_exif_tag": 0,
+      "instances_per_category": {
+        "scratch": 307,
+        "dent": 236,
+        "glass shatter": 71,
+        "crack": 70,
+        "lamp broken": 69,
+        "tire flat": 32
+      },
+      "annotations_bad_category": [],
+      "annotations_bad_image_id": [],
+      "boxes_zero_area": [],
+      "boxes_tiny_overshoot": [],
+      "boxes_real_overshoot": [],
+      "max_box_overshoot_px": 0.0,
+      "annotations_with_segmentation": 785,
+      "segmentation_types": {
+        "polygon": 785
+      },
+      "images_without_annotations": []
+    }
+  },
+  "categories_identical_across_splits": true,
+  "file_names_in_two_splits": {
+    "train-val": [],
+    "train-test": [],
+    "val-test": []
+  },
+  "total_images": 4000,
+  "total_instances": 8740,
+  "instances_per_category_all": {
+    "scratch": 3595,
+    "dent": 2543,
+    "crack": 898,
+    "lamp broken": 704,
+    "glass shatter": 681,
+    "tire flat": 319
+  },
+  "image_info": {
+    "n_rows": 4000,
+    "columns_after_strip": [
+      "id",
+      "file_name",
+      "width",
+      "height",
+      "file_size (KB)",
+      "#instances",
+      "#categories",
+      "shooting angle",
+      "complete or partial",
+      "color",
+      "colour_bin",
+      "angle_bin",
+      "completeness",
+      "split"
+    ],
+    "rows_not_in_any_split": 0,
+    "duplicate_file_names": 0,
+    "raw_value_counts": {
+      "shooting angle": {
+        "side": 1622,
+        "front": 1279,
+        "rear": 649,
+        "blank": 440,
+        "inside": 10
+      },
+      "color": {
+        "silver": 1008,
+        "white": 742,
+        "gray": 564,
+        "black": 484,
+        "red": 374,
+        "blank": 344,
+        "blue": 242,
+        "champagne": 61,
+        "green": 56,
+        "yellow": 50,
+        "mixture": 24,
+        "purple": 16,
+        "brown": 14,
+        "orange": 11,
+        "pink": 10
+      },
+      "complete or partial": {
+        "partial": 3920,
+        "complete": 80
+      }
+    },
+    "bins_all": {
+      "colour_bin": {
+        "light": 1811,
+        "dark": 1048,
+        "coloured": 797,
+        "unknown": 344
+      },
+      "angle_bin": {
+        "side": 1622,
+        "front": 1279,
+        "rear": 649,
+        "other-unknown": 450
+      },
+      "completeness": {
+        "partial": 3920,
+        "complete": 80
+      }
+    },
+    "bins_per_split": {
+      "train": {
+        "colour_bin": {
+          "light": 1298,
+          "dark": 718,
+          "coloured": 560,
+          "unknown": 240
+        },
+        "angle_bin": {
+          "side": 1145,
+          "front": 922,
+          "rear": 452,
+          "other-unknown": 297
+        },
+        "completeness": {
+          "partial": 2761,
+          "complete": 55
+        }
+      },
+      "val": {
+        "colour_bin": {
+          "light": 348,
+          "dark": 234,
+          "coloured": 158,
+          "unknown": 70
+        },
+        "angle_bin": {
+          "side": 311,
+          "front": 248,
+          "rear": 138,
+          "other-unknown": 113
+        },
+        "completeness": {
+          "partial": 801,
+          "complete": 9
+        }
+      },
+      "test": {
+        "colour_bin": {
+          "light": 165,
+          "dark": 96,
+          "coloured": 79,
+          "unknown": 34
+        },
+        "angle_bin": {
+          "side": 166,
+          "front": 109,
+          "rear": 59,
+          "other-unknown": 40
+        },
+        "completeness": {
+          "partial": 358,
+          "complete": 16
+        }
+      }
+    },
+    "partial_share": 0.98,
+    "cross_check_mismatches": {
+      "width": [],
+      "height": [],
+      "#instances": [],
+      "#categories": []
+    }
+  },
+  "settings": {
+    "tiny_overshoot_px": 1.0
+  }
+}

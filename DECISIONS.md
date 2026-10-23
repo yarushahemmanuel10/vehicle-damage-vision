@@ -83,3 +83,22 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** one seed per run; deterministic mode on.
 - **Reason:** Seed variation shows whether the gaps between methods are real. Bootstrap confidence intervals separately measure test-set sampling uncertainty.
 - **Decided by:** me
+
+### D-011 · CarDD_SOD folder: present but out of scope
+- **Date:** 2026-10-23
+- **Choice:** Use only `CarDD_COCO`. The `CarDD_SOD` folder (salient object detection: copies of the same images with binary masks and edge maps) is not used.
+- **Alternatives:** use the SOD masks for segmentation.
+- **Reason:** Both tasks need a class label per damage, which only the COCO annotations provide. COCO also contains segmentation masks for every annotation, for the Mask R-CNN stretch goal. SOD images are copies, so reading them would double-count images.
+- **Decided by:** AI proposed / I accepted
+
+### D-012 · image_info.xlsx: subgroup analysis and cross-check only
+- **Date:** 2026-10-23
+- **Choice:**
+  - Use `image_info.xlsx` for subgroup error analysis and as a consistency cross-check only, not as a model input.
+  - Bins fixed now, before any results: colour = light (white, silver, champagne) / dark (black, gray) / coloured (all other named colours, including "mixture") / unknown (blank); angle = front / side / rear / other-unknown ("inside" and blank); completeness: counts only.
+  - Report group sizes beside every subgroup figure.
+  - Pin `openpyxl==3.1.5`; strip the trailing space in the `complete or partial ` column name.
+  - Spreadsheet summary and the width/height/#instances/#categories cross-check live in `scripts/verify_data.py`, so the counts are citable.
+- **Alternatives:** leave the spreadsheet out of scope; use it as a model input.
+- **Reason:** Subgroup results (for example, by car colour or shooting angle) show where the model fails in ways a repair business would recognise. Fixing bins before results prevents choosing groups that make results look better.
+- **Decided by:** me
