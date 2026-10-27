@@ -1,0 +1,12 @@
+number,query_split,query,ref_split,ref,distance,mirrored,decision,note
+1,val,001329.jpg,train,003709.jpg,8,True,keep,different car and panel
+2,val,002064.jpg,train,002938.jpg,8,True,keep,"different car, similar wheel-arch composition"
+3,val,002954.jpg,train,002870.jpg,8,True,keep,"different cars (blue vs white), same composition"
+4,test,002810.jpg,train,002864.jpg,10,False,keep,different car and damage
+5,test,003533.jpg,train,002051.jpg,10,True,keep,different car and panel
+6,val,000254.jpg,train,003104.jpg,10,False,dup,"same van, windscreen and background; train copy slightly zoomed (cropped duplicate)"
+7,val,002316.jpg,train,002097.jpg,10,True,keep,different car and damage
+8,val,002868.jpg,train,001841.jpg,10,False,keep,different vehicles
+9,val,003963.jpg,train,001454.jpg,10,False,keep,"different shot; possibly same vehicle, cannot confirm - same-vehicle note"
+10,test,000424.jpg,train,001740.jpg,12,True,keep,different cars (white vs gold)
+11,train,003010.jpg,train,001319.jpg,8,False,keep,"different photos, different damage (train pair, removes nothing)"

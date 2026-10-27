@@ -45,3 +45,14 @@ All numbers from `outputs/metrics/crops_summary.json` (`python scripts/build_cro
 - This contamination measure (share of the other box inside the window) is not comparable with the box-statistics overlap above (share of this box covered by another).
 - **IDs:** annotation IDs are not unique across splits (1744 shared); image IDs are. The manifest is keyed on (split, ann_id).
 - The manifest is provisional until A4 (after the A3 duplicate check).
+
+## A3 · Near-duplicate check (D-006 amendment)
+
+All numbers from `outputs/metrics/dup_calibration_train.json` and `outputs/metrics/dup_summary.json`.
+
+- **Calibration (train only, 200 photos, seed 42):** distance from synthetic copies to their original: JPEG q70 max 2, half-size resize max 2, brightness ±10% max 4; 5 to 10% crop median 12.0, max 26; all combined median 10.0, max 26. Nearest different train photo: min 8, median 18.0, max 20.
+- **Threshold:** distance ≤ 6 is a duplicate.
+- **Automatic duplicates (pairs):** {'val-train': 4, 'test-train': 0, 'val-test': 0}. Photos removed: val 5, test 0. Crops excluded: {'train': 0, 'val': 8, 'test': 0}.
+- **Spot-check by eye:** 11 pairs (including one train↔train pair, which never removes a photo): 1 marked duplicate, 10 kept.
+- **Crops remaining for classification:** {'train': 6211, 'val': 1736, 'test': 785}.
+- **Limitation:** pHash misses copies cropped beyond light trimming, and watermarks or overlays; only the closest pairs above the threshold were checked by eye.

@@ -46,6 +46,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** Results are comparable with the paper's published baselines, and the test set was fixed by the authors before I saw the data. The split is by image, so crops from one photo cannot cross splits. It is by file, not by vehicle, hence the duplicate check.
 - **Decided by:** AI proposed / I changed: I limited the check to test↔train and val↔train, required the threshold to be fixed before seeing results, and added manual review of flagged pairs.
 
+- **Amendment (2026-10-27):** pHash distance ≤ 6 → duplicate, removed automatically. The threshold was set from the train calibration (`outputs/metrics/dup_calibration_train.json`): all JPEG-recompressed, resized and brightness-changed copies were at distance ≤ 4; the nearest different train photo was at 8; pHash distances are always even. No full review band. Comparisons: val↔train and test↔train (val/test photos also compared mirrored) and val↔test. Spot-check by eye: the 10 closest pairs above the threshold plus train pair 003010/001319; nothing from the spot-check is removed unless marked "dup"; decisions in `splits/dup_review.csv`. Removal: only the val/test photo, never train; for val↔test duplicates, the val photo; removal flags crops in the manifest (`dup_excluded`) and never touches files on disk.
+- **Amendment limitation:** pHash misses copies cropped beyond light trimming, and watermarks or overlays; the spot-check result is reported (`outputs/metrics/dup_summary.json`).
+- **Amendment decided by:** me
+
 ### D-007 · Workflow: Colab only, code written and committed from Colab
 - **Date:** 2026-10-22
 - **Choice:** All code lives in the `src/vdv/` package, written block by block from Colab with `%%writefile` and committed and pushed from Colab. Tests run in Colab on a tiny sample, on CPU where practical. Kaggle Notebooks are the backup.
@@ -154,4 +158,16 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Choice:** Report the classification metrics on val and test separately for crops with `other_class_ge50` = 1 (at least half of an other-class box inside the final crop window) and = 0. Reported overall only, not per class, with group sizes beside every figure. Never used for model selection or the review threshold.
 - **Alternatives:** no subgroup analysis; per-class subgroups; a different flag (`other_class_any`, `other_class_ge25`).
 - **Reason:** 772 of 6211 train crops (12.4%) contain at least half of an other-class box, so the classifier could learn from surrounding damage instead of the labelled one. Fixed before any results.
+- **Decided by:** me
+
+### D-020 · Scope and schedule cut
+- **Date:** 2026-10-27
+- **Choice:**
+  - Tue 27 Oct: finish A3, then A4 and A5 (augmentations: horizontal flip and brightness only).
+  - Wed 28 Oct: A6 with epoch timing, the training runs, A11 to A13 (no Grad-CAM).
+  - Thu 29 Oct: Phase C. Phase B only if Phase A is fully done by Wednesday night; otherwise it is documented as future work.
+  - Cut: Phase D, Grad-CAM and Mask R-CNN. The ViT run is a linear probe or 1 seed (replaces the ViT part of D-010). The seed count for the ResNet runs is decided from the A6 epoch timing (D-010).
+  - Working method: low-risk steps (code, tests, commit) are batched into one approval; work stops only for decisions, training starts and the test evaluation.
+- **Alternatives:** the original schedule (Phase A by 25 Oct, Phase B by 27 Oct, Phase C on 28 Oct).
+- **Reason:** It is Tuesday evening and the application closes on Friday 30 October. Scope is cut; the evaluation is not.
 - **Decided by:** me

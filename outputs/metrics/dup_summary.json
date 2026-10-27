@@ -1,0 +1,96 @@
+{
+  "threshold": 6,
+  "auto_pairs_per_comparison": {
+    "val-train": 4,
+    "test-train": 0,
+    "val-test": 0
+  },
+  "photos_removed": {
+    "val": 5,
+    "test": 0
+  },
+  "photos_removed_list": [
+    "val/000254.jpg",
+    "val/000790.jpg",
+    "val/002815.jpg",
+    "val/003840.jpg",
+    "val/003843.jpg"
+  ],
+  "crops_excluded": {
+    "train": 0,
+    "val": 8,
+    "test": 0
+  },
+  "crops_excluded_per_class": {
+    "val/dent": 2,
+    "val/glass shatter": 2,
+    "val/scratch": 4
+  },
+  "crops_remaining": {
+    "train": 6211,
+    "val": 1736,
+    "test": 785
+  },
+  "spot_check": {
+    "pairs": 11,
+    "dup": 1,
+    "keep": 10,
+    "decisions": [
+      {
+        "number": 1,
+        "decision": "keep",
+        "note": "different car and panel"
+      },
+      {
+        "number": 2,
+        "decision": "keep",
+        "note": "different car, similar wheel-arch composition"
+      },
+      {
+        "number": 3,
+        "decision": "keep",
+        "note": "different cars (blue vs white), same composition"
+      },
+      {
+        "number": 4,
+        "decision": "keep",
+        "note": "different car and damage"
+      },
+      {
+        "number": 5,
+        "decision": "keep",
+        "note": "different car and panel"
+      },
+      {
+        "number": 6,
+        "decision": "dup",
+        "note": "same van, windscreen and background; train copy slightly zoomed (cropped duplicate)"
+      },
+      {
+        "number": 7,
+        "decision": "keep",
+        "note": "different car and damage"
+      },
+      {
+        "number": 8,
+        "decision": "keep",
+        "note": "different vehicles"
+      },
+      {
+        "number": 9,
+        "decision": "keep",
+        "note": "different shot; possibly same vehicle, cannot confirm - same-vehicle note"
+      },
+      {
+        "number": 10,
+        "decision": "keep",
+        "note": "different cars (white vs gold)"
+      },
+      {
+        "number": 11,
+        "decision": "keep",
+        "note": "different photos, different damage (train pair, removes nothing)"
+      }
+    ]
+  }
+}

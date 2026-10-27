@@ -1,0 +1,1201 @@
+{
+  "split": "train",
+  "n_train_photos": 2816,
+  "n_sample": 200,
+  "seed": 42,
+  "hash": "imagehash.phash, 64 bits (imagehash 4.3.2)",
+  "synthetic": {
+    "jpeg_q70": {
+      "n": 200,
+      "min": 0,
+      "p50": 0.0,
+      "p95": 2.0,
+      "p99": 2.0,
+      "max": 2
+    },
+    "resize_half": {
+      "n": 200,
+      "min": 0,
+      "p50": 0.0,
+      "p95": 2.0,
+      "p99": 2.0,
+      "max": 2
+    },
+    "crop_5_10pct": {
+      "n": 200,
+      "min": 4,
+      "p50": 12.0,
+      "p95": 20.0,
+      "p99": 22.019999999999982,
+      "max": 26
+    },
+    "brightness_10pct": {
+      "n": 200,
+      "min": 0,
+      "p50": 0.0,
+      "p95": 2.0,
+      "p99": 4.0,
+      "max": 4
+    },
+    "combined": {
+      "n": 200,
+      "min": 2,
+      "p50": 10.0,
+      "p95": 18.0,
+      "p99": 20.019999999999982,
+      "max": 26
+    }
+  },
+  "synthetic_all": {
+    "n": 1000,
+    "min": 0,
+    "p50": 0.0,
+    "p95": 16.0,
+    "p99": 20.0,
+    "max": 26
+  },
+  "nearest_other": {
+    "n": 200,
+    "min": 8,
+    "p50": 18.0,
+    "p95": 20.0,
+    "p99": 20.0,
+    "max": 20
+  },
+  "histogram_synthetic_all": [
+    546,
+    0,
+    50,
+    0,
+    33,
+    0,
+    48,
+    0,
+    62,
+    0,
+    72,
+    0,
+    66,
+    0,
+    55,
+    0,
+    29,
+    0,
+    18,
+    0,
+    14,
+    0,
+    4,
+    0,
+    1,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "histogram_nearest_other": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    3,
+    0,
+    12,
+    0,
+    70,
+    0,
+    100,
+    0,
+    14,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "nearest_other_within_synthetic_range": [
+    {
+      "sample": "003010.jpg",
+      "nearest": "001319.jpg",
+      "distance": 8
+    },
+    {
+      "sample": "000624.jpg",
+      "nearest": "002938.jpg",
+      "distance": 12
+    },
+    {
+      "sample": "003190.jpg",
+      "nearest": "000279.jpg",
+      "distance": 12
+    },
+    {
+      "sample": "003225.jpg",
+      "nearest": "002039.jpg",
+      "distance": 12
+    },
+    {
+      "sample": "000029.jpg",
+      "nearest": "001999.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "000453.jpg",
+      "nearest": "002711.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "000757.jpg",
+      "nearest": "002843.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "000841.jpg",
+      "nearest": "001957.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "001204.jpg",
+      "nearest": "001569.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "001986.jpg",
+      "nearest": "003713.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "002458.jpg",
+      "nearest": "002436.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "002871.jpg",
+      "nearest": "002780.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "003325.jpg",
+      "nearest": "002493.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "003609.jpg",
+      "nearest": "001451.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "003916.jpg",
+      "nearest": "003855.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "003928.jpg",
+      "nearest": "000113.jpg",
+      "distance": 14
+    },
+    {
+      "sample": "000094.jpg",
+      "nearest": "000509.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000144.jpg",
+      "nearest": "002525.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000302.jpg",
+      "nearest": "002727.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000329.jpg",
+      "nearest": "002020.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000365.jpg",
+      "nearest": "003361.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000366.jpg",
+      "nearest": "002251.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000431.jpg",
+      "nearest": "002253.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000478.jpg",
+      "nearest": "000785.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000486.jpg",
+      "nearest": "001870.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000504.jpg",
+      "nearest": "001478.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000649.jpg",
+      "nearest": "002920.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000668.jpg",
+      "nearest": "000002.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000921.jpg",
+      "nearest": "001238.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001082.jpg",
+      "nearest": "001166.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001106.jpg",
+      "nearest": "000283.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001111.jpg",
+      "nearest": "000920.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001189.jpg",
+      "nearest": "002191.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001206.jpg",
+      "nearest": "000978.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001266.jpg",
+      "nearest": "001936.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001334.jpg",
+      "nearest": "000712.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001348.jpg",
+      "nearest": "002020.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001364.jpg",
+      "nearest": "003121.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001417.jpg",
+      "nearest": "000151.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001448.jpg",
+      "nearest": "001816.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001565.jpg",
+      "nearest": "002019.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001611.jpg",
+      "nearest": "000765.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001664.jpg",
+      "nearest": "002963.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001687.jpg",
+      "nearest": "002838.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001763.jpg",
+      "nearest": "000608.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001765.jpg",
+      "nearest": "002878.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001784.jpg",
+      "nearest": "001337.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001817.jpg",
+      "nearest": "001905.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001824.jpg",
+      "nearest": "001857.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001870.jpg",
+      "nearest": "000486.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001965.jpg",
+      "nearest": "003926.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "001985.jpg",
+      "nearest": "001334.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002041.jpg",
+      "nearest": "000511.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002081.jpg",
+      "nearest": "001469.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002218.jpg",
+      "nearest": "001972.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002246.jpg",
+      "nearest": "000453.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002390.jpg",
+      "nearest": "001476.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002420.jpg",
+      "nearest": "003880.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002421.jpg",
+      "nearest": "002967.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002437.jpg",
+      "nearest": "002844.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002478.jpg",
+      "nearest": "001663.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002569.jpg",
+      "nearest": "002104.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002599.jpg",
+      "nearest": "000553.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002634.jpg",
+      "nearest": "001457.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002638.jpg",
+      "nearest": "000411.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002643.jpg",
+      "nearest": "001038.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002658.jpg",
+      "nearest": "001235.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002748.jpg",
+      "nearest": "003476.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002763.jpg",
+      "nearest": "003310.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002770.jpg",
+      "nearest": "001697.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002848.jpg",
+      "nearest": "000049.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002870.jpg",
+      "nearest": "001408.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002885.jpg",
+      "nearest": "003609.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002943.jpg",
+      "nearest": "003088.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "002955.jpg",
+      "nearest": "002305.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003016.jpg",
+      "nearest": "002751.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003037.jpg",
+      "nearest": "001194.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003098.jpg",
+      "nearest": "000563.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003185.jpg",
+      "nearest": "000716.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003358.jpg",
+      "nearest": "000758.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003517.jpg",
+      "nearest": "000624.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003668.jpg",
+      "nearest": "001788.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003838.jpg",
+      "nearest": "001042.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003853.jpg",
+      "nearest": "003538.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003854.jpg",
+      "nearest": "003047.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "003902.jpg",
+      "nearest": "000712.jpg",
+      "distance": 16
+    },
+    {
+      "sample": "000123.jpg",
+      "nearest": "000588.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000138.jpg",
+      "nearest": "000327.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000169.jpg",
+      "nearest": "003161.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000231.jpg",
+      "nearest": "001532.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000263.jpg",
+      "nearest": "000323.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000318.jpg",
+      "nearest": "003278.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000344.jpg",
+      "nearest": "000726.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000363.jpg",
+      "nearest": "000529.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000367.jpg",
+      "nearest": "001561.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000370.jpg",
+      "nearest": "000998.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000384.jpg",
+      "nearest": "000325.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000505.jpg",
+      "nearest": "000566.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000549.jpg",
+      "nearest": "000608.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000554.jpg",
+      "nearest": "002919.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000598.jpg",
+      "nearest": "000998.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000617.jpg",
+      "nearest": "000126.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000634.jpg",
+      "nearest": "000745.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000690.jpg",
+      "nearest": "003061.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000733.jpg",
+      "nearest": "001737.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000744.jpg",
+      "nearest": "000486.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000775.jpg",
+      "nearest": "000816.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000854.jpg",
+      "nearest": "000087.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000870.jpg",
+      "nearest": "002106.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000954.jpg",
+      "nearest": "001699.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001046.jpg",
+      "nearest": "002965.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001073.jpg",
+      "nearest": "000617.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001154.jpg",
+      "nearest": "000277.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001239.jpg",
+      "nearest": "000680.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001276.jpg",
+      "nearest": "001332.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001360.jpg",
+      "nearest": "000823.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001378.jpg",
+      "nearest": "003230.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001387.jpg",
+      "nearest": "002973.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001395.jpg",
+      "nearest": "000104.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001403.jpg",
+      "nearest": "001385.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001509.jpg",
+      "nearest": "002108.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001515.jpg",
+      "nearest": "000135.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001600.jpg",
+      "nearest": "001482.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001602.jpg",
+      "nearest": "001277.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001607.jpg",
+      "nearest": "002784.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001629.jpg",
+      "nearest": "000036.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001650.jpg",
+      "nearest": "002660.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001675.jpg",
+      "nearest": "000313.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001676.jpg",
+      "nearest": "002674.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001685.jpg",
+      "nearest": "000412.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001693.jpg",
+      "nearest": "000872.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001773.jpg",
+      "nearest": "000229.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001807.jpg",
+      "nearest": "002395.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001883.jpg",
+      "nearest": "001004.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001914.jpg",
+      "nearest": "002319.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001955.jpg",
+      "nearest": "001730.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001958.jpg",
+      "nearest": "001403.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "001971.jpg",
+      "nearest": "000019.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002068.jpg",
+      "nearest": "001053.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002157.jpg",
+      "nearest": "003919.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002162.jpg",
+      "nearest": "001303.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002187.jpg",
+      "nearest": "000248.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002207.jpg",
+      "nearest": "002400.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002211.jpg",
+      "nearest": "000201.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002367.jpg",
+      "nearest": "001966.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002428.jpg",
+      "nearest": "002118.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002519.jpg",
+      "nearest": "001232.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002549.jpg",
+      "nearest": "001760.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002566.jpg",
+      "nearest": "002551.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002578.jpg",
+      "nearest": "000486.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002596.jpg",
+      "nearest": "001785.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002611.jpg",
+      "nearest": "001015.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002691.jpg",
+      "nearest": "000553.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002698.jpg",
+      "nearest": "000862.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002732.jpg",
+      "nearest": "001034.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002735.jpg",
+      "nearest": "000111.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002832.jpg",
+      "nearest": "001364.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002847.jpg",
+      "nearest": "000717.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002939.jpg",
+      "nearest": "000467.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002951.jpg",
+      "nearest": "003119.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "002979.jpg",
+      "nearest": "000511.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003049.jpg",
+      "nearest": "001862.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003075.jpg",
+      "nearest": "000208.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003085.jpg",
+      "nearest": "000008.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003086.jpg",
+      "nearest": "000652.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003091.jpg",
+      "nearest": "000302.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003104.jpg",
+      "nearest": "000002.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003114.jpg",
+      "nearest": "000622.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003135.jpg",
+      "nearest": "000346.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003207.jpg",
+      "nearest": "000681.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003209.jpg",
+      "nearest": "000329.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003218.jpg",
+      "nearest": "000116.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003229.jpg",
+      "nearest": "002173.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003339.jpg",
+      "nearest": "000052.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003344.jpg",
+      "nearest": "002454.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003455.jpg",
+      "nearest": "000900.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003461.jpg",
+      "nearest": "003273.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003484.jpg",
+      "nearest": "000164.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003582.jpg",
+      "nearest": "000073.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003605.jpg",
+      "nearest": "000684.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003641.jpg",
+      "nearest": "000710.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003680.jpg",
+      "nearest": "001073.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003731.jpg",
+      "nearest": "000269.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003788.jpg",
+      "nearest": "000074.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003901.jpg",
+      "nearest": "000716.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "003934.jpg",
+      "nearest": "000248.jpg",
+      "distance": 18
+    },
+    {
+      "sample": "000247.jpg",
+      "nearest": "000203.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "000669.jpg",
+      "nearest": "000113.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "000918.jpg",
+      "nearest": "000031.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "000951.jpg",
+      "nearest": "000558.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "001487.jpg",
+      "nearest": "000070.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "001707.jpg",
+      "nearest": "000078.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "001775.jpg",
+      "nearest": "000692.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "001826.jpg",
+      "nearest": "000117.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "002600.jpg",
+      "nearest": "000141.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "002840.jpg",
+      "nearest": "000232.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "003032.jpg",
+      "nearest": "000815.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "003189.jpg",
+      "nearest": "000425.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "003378.jpg",
+      "nearest": "000028.jpg",
+      "distance": 20
+    },
+    {
+      "sample": "003894.jpg",
+      "nearest": "001137.jpg",
+      "distance": 20
+    }
+  ]
+}

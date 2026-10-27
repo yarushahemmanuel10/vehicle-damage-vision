@@ -49,3 +49,9 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **BGR vs RGB.** OpenCV loads colour images with the channels in the order blue, green, red (BGR); PyTorch, torchvision and pre-trained models expect red, green, blue (RGB). Pre-trained weights were learned with ImageNet's per-channel RGB mean and standard deviation, so a BGR image normalised with RGB statistics feeds the model swapped colours: training may still run, but transfer learning works worse, and a red tail light can look blue to the model. The A6 data loader converts BGR to RGB (`cv2.cvtColor(img, cv2.COLOR_BGR2RGB)`) before ImageNet normalisation, and a test checks it on a synthetic pure-red image.
 
 **Code-hash versioning.** The crop cache's version includes a hash of the crop rules and the build script, so editing either one changes the version and the old cache is refused. It finds the build script relative to the package source, which relies on the editable install (`pip install -e .`).
+
+**Perceptual hash (pHash).** A 64-bit fingerprint of an image's overall structure, taken from the low-frequency part of a cosine transform. Recompressed, resized or slightly brightened copies keep nearly the same fingerprint, so near-duplicates can be found without comparing pixels.
+
+**Hamming distance.** The number of the 64 bits that differ between two fingerprints: 0 means identical, around 32 is typical for unrelated images. pHash sets each bit by comparing a value with the median of all 64, so every hash has exactly 32 ones and every distance is even.
+
+**What pHash misses.** Cropping shifts the whole frame, which changes the fingerprint about as much as switching to a different photo, so cropped copies are not separable by threshold. That is why the threshold covers recompress/resize/brightness copies only, and pairs just above it were checked by eye. Mirrored copies are caught by also hashing each val/test photo flipped left to right.
