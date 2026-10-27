@@ -252,6 +252,9 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Implementation details (AI proposed):** torchvision defaults (3 trainable backbone stages, frozen BatchNorm in the backbone, evaluation at box score ≥ 0.05 with up to 100 detections per image); validation mAP also at the last epoch; best checkpoint strictly better (ties keep the earlier epoch); training stops on a non-finite loss; per-class AP from pycocotools' precision array (IoU 0.50:0.95, all areas, 100 detections), as in the paper's Table V; learning-rate warmup supported (`--warmup-iters`) but off unless decided before B4.
 - **Decided by:** me
 
+- **Amendment (2026-10-27, warmup):** learning-rate warmup over the first 500 iterations, linear from 0.001× the base learning rate, matching MMDetection's default schedule (the toolbox the CarDD paper used; the paper does not state its warmup). With 704 iterations per epoch, warmup ends within epoch 1. Replaces "warmup off unless decided" in D-026's implementation details.
+- **Amendment decided by:** me
+
 ### D-027 · Repository publication and the CarDD licence (Phase C)
 - **Date:** 2026-10-27
 - **Choice:** Option (b). The full repository stays private (it keeps the git history, including the predictions-first evidence). A clean public copy holds the code, docs, DECISIONS, PREDICTIONS and aggregate metrics, without `splits/crops_manifest.csv`, the `val_probs`/`test_probs` files or any other per-annotation data. That copy notes that these files regenerate from the scripts once CarDD access is granted. My statement links the public copy and offers the private repo on request. Phase B detection annotation files stay out of git from the start.
