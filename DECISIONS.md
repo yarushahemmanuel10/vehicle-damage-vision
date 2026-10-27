@@ -172,6 +172,9 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** It is Tuesday evening and the application closes on Friday 30 October. Scope is cut; the evaluation is not.
 - **Decided by:** me
 
+- **Amendment (2026-10-27, Phase B):** Phase A training finished on Tuesday evening, ahead of plan, so Phase B is back on for Wednesday 28 October.
+- **Amendment decided by:** me
+
 ### D-021 · A5 augmentation: horizontal flip and brightness, train only
 - **Date:** 2026-10-27
 - **Choice:** Train crops only, before padding, with OpenCV:
@@ -207,3 +210,16 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** 1 or 2 seeds; 10, 15 or 30 epochs; a longer budget for scratch.
 - **Reason:** From the A6 timing on the T4 (`outputs/metrics/timing/`): 28 s per epoch for the ResNet-18 fine-tune and 31 s per epoch for the ViT probe. Scratch will likely still be improving at 20 epochs; that is the expected cost of no pre-training, stated in my predictions, not compensated.
 - **Decided by:** me; seed values 42, 43, 44 AI-proposed
+
+### D-024 · A11 review threshold: model, cut-offs and selection rule
+- **Date:** 2026-10-27
+- **Choice:**
+  - A11 uses fine-tune seed 42 only (best method by mean validation macro F1; seed 42 per D-010).
+  - Cut-offs on the top softmax probability: 0.50, 0.70, 0.80, 0.90, 0.95, 0.98, 0.99, 0.995. For each: share sent to review, and accuracy and macro F1 of the auto-labelled share.
+  - Also report expected calibration error and a reliability table on validation, since validation loss rose late in fine-tuning.
+  - Selection rule, fixed before seeing the table: the operating threshold is the lowest cut-off at which auto-labelled validation accuracy is at least 97%. If none reaches it, report that and use the highest cut-off.
+  - A12 then applies that threshold to test once, on my explicit approval.
+- **Alternatives:** all four models at seed 42; a threshold chosen by eye from the table; a target on macro F1 instead of accuracy.
+- **Reason:** Fixing the rule before the table exists stops the threshold being chosen to make the results look good.
+- **Implementation details (AI proposed):** a crop goes to review if its confidence is below the cut-off (exactly at the cut-off is auto-labelled); macro F1 of the auto-labelled share averages over the classes present in it, and the table shows how many remain; ECE and the reliability table use 10 equal-width confidence bins.
+- **Decided by:** me

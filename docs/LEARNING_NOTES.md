@@ -85,3 +85,9 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **The "scheduler.step() before optimizer.step()" warning.** With mixed precision, the GradScaler can skip the very first optimiser step while it calibrates its scale (the first gradients overflow in 16-bit). The scheduler still advances, so one learning-rate value out of roughly 2,000 is skipped. Harmless.
 
 **Validation loss rising while accuracy stays flat.** Late in fine-tuning the training loss approached zero and validation loss rose, while validation macro F1 stayed level. The model was still mostly right but became more confident, including on its mistakes. Confident mistakes are what a review threshold (A11) has to catch, so this affects how well routing by confidence can work.
+
+**Review threshold (human-in-the-loop).** Each crop's confidence is its top softmax probability. Crops below a cut-off go to a human; the rest are labelled automatically. Raising the cut-off sends more crops to review and makes the auto-labelled share more accurate: the business chooses the trade-off.
+
+**Calibration and ECE.** A model is calibrated if, among predictions made with 90% confidence, about 90% are right. A reliability table groups predictions by confidence and compares each group's accuracy with its mean confidence. Expected calibration error (ECE) is the weighted average gap. An overconfident model has accuracy below confidence, which weakens confidence-based routing.
+
+**Fixing a selection rule in advance.** Choosing a threshold by looking at results invites picking whatever looks best. Writing the rule down first, then letting a script apply it, keeps the choice honest.
