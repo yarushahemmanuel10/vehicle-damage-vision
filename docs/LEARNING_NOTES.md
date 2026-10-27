@@ -55,3 +55,5 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Hamming distance.** The number of the 64 bits that differ between two fingerprints: 0 means identical, around 32 is typical for unrelated images. pHash sets each bit by comparing a value with the median of all 64, so every hash has exactly 32 ones and every distance is even.
 
 **What pHash misses.** Cropping shifts the whole frame, which changes the fingerprint about as much as switching to a different photo, so cropped copies are not separable by threshold. That is why the threshold covers recompress/resize/brightness copies only, and pairs just above it were checked by eye. Mirrored copies are caught by also hashing each val/test photo flipped left to right.
+
+**Freezing a split with a hash.** A SHA-256 hash is a fingerprint of a file's exact bytes: change one character and the hash changes completely. Storing the manifest's hash at the freeze, and checking it in the tests and the data loader, makes any later change to the split impossible to miss.

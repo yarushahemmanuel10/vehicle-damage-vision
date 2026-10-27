@@ -56,3 +56,15 @@ All numbers from `outputs/metrics/dup_calibration_train.json` and `outputs/metri
 - **Spot-check by eye:** 11 pairs (including one train↔train pair, which never removes a photo): 1 marked duplicate, 10 kept.
 - **Crops remaining for classification:** {'train': 6211, 'val': 1736, 'test': 785}.
 - **Limitation:** pHash misses copies cropped beyond light trimming, and watermarks or overlays; only the closest pairs above the threshold were checked by eye.
+
+### A3 spot-check finding
+
+- 1 of the 10 pairs above the threshold that were checked by eye was a cropped duplicate that pHash missed (val/000254.jpg ↔ train/003104.jpg, distance 10); it is now removed.
+- Val/test photos whose nearest match is at distance 8 to 12 (from `outputs/metrics/dup_candidates.json`): val↔train 33, test↔train 17, val↔test 3. Only the 10 closest pairs were checked by eye, so further cropped duplicates may remain among these.
+
+## A4 · Frozen split
+
+- `splits/crops_manifest.csv` frozen on 2026-10-27; its SHA-256 (`75c2afd5b7751df4…`) is stored in `splits/crops_manifest.sha256`. The tests and the data loader (`vdv.data.manifest.load_split`) refuse a manifest that differs from it.
+- **Crops used for classification** (duplicates excluded): train 6211, val 1736, test 785.
+- Label index = CarDD category ID − 1: dent 0, scratch 1, crack 2, glass shatter 3, lamp broken 4, tire flat 5.
+- The test split is locked until the final evaluation (A12).
