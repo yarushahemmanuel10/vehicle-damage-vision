@@ -57,3 +57,7 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **What pHash misses.** Cropping shifts the whole frame, which changes the fingerprint about as much as switching to a different photo, so cropped copies are not separable by threshold. That is why the threshold covers recompress/resize/brightness copies only, and pairs just above it were checked by eye. Mirrored copies are caught by also hashing each val/test photo flipped left to right.
 
 **Freezing a split with a hash.** A SHA-256 hash is a fingerprint of a file's exact bytes: change one character and the hash changes completely. Storing the manifest's hash at the freeze, and checking it in the tests and the data loader, makes any later change to the split impossible to miss.
+
+**Data augmentation.** Random, label-preserving changes to training images (here a mirror flip and a brightness change), so the model sees more variety than the raw data holds and relies less on incidental details. Only training data is augmented: validation and test must reflect unaltered photos, or the scores stop describing real use.
+
+**Saturation (clipping).** Pixel values live in 0 to 255. Brightening a white panel by 20% would push values above 255; they are clipped to 255, which turns detail into flat white. That is why the brightness range is kept small for a dataset with many light-coloured cars.

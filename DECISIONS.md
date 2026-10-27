@@ -171,3 +171,15 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** the original schedule (Phase A by 25 Oct, Phase B by 27 Oct, Phase C on 28 Oct).
 - **Reason:** It is Tuesday evening and the application closes on Friday 30 October. Scope is cut; the evaluation is not.
 - **Decided by:** me
+
+### D-021 · A5 augmentation: horizontal flip and brightness, train only
+- **Date:** 2026-10-27
+- **Choice:** Train crops only, before padding, with OpenCV:
+  - Horizontal flip, p = 0.5.
+  - Brightness multiplier ~ Uniform[0.8, 1.2], clipped to 0 to 255.
+  - Val and test: no augmentation. Small rotations from the original brief are cut (D-020).
+- **Alternatives:** vertical flip; stronger brightness changes; small rotations.
+- **Reason:**
+  - Flip: damage has no left/right meaning and cars are roughly symmetric. No vertical flip: photos have a consistent up/down.
+  - Brightness: mimics lighting differences between sites and times of day. Kept at ±20% because light is the largest colour group (1298 of 2816 train photos, 46.1%, `outputs/metrics/data_verification.json`), and stronger brightening clips white paint and erases light scratches.
+- **Decided by:** me
