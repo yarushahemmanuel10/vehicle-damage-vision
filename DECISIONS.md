@@ -223,3 +223,15 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** Fixing the rule before the table exists stops the threshold being chosen to make the results look good.
 - **Implementation details (AI proposed):** a crop goes to review if its confidence is below the cut-off (exactly at the cut-off is auto-labelled); macro F1 of the auto-labelled share averages over the classes present in it, and the table shows how many remain; ECE and the reliability table use 10 equal-width confidence bins.
 - **Decided by:** me
+
+### D-025 · A12 test evaluation and A13 examples
+- **Date:** 2026-10-27
+- **Choice:**
+  - Bootstrap 95% CIs for seed 42 of each model, 2,000 resamples, resampling photos, not crops (crops from one photo aren't independent). Also paired bootstrap CIs for fine-tune minus each other model on the same resamples. Mean ± SD across seeds alongside (D-010).
+  - D-012 and D-019 subgroups for fine-tune seed 42 only, with group sizes beside every figure.
+  - A13: 12 examples from fine-tune seed 42: 6 correct (one per class), 4 errors including the most confident ones, and 2 crops routed to review at the operating threshold. Private figure.
+  - Test predictions are saved per run, and the commit hash is recorded with the A12 results.
+- **Alternatives:** crop-level bootstrap; CIs for every seed; subgroups for every model.
+- **Reason:** Resampling photos respects the dependence between crops from the same photo; paired differences on the same resamples show whether the gaps between methods are larger than test-set sampling noise.
+- **Implementation details (AI proposed):** bootstrap generator seed 42 with percentile intervals; within a resample, macro F1 averages over the classes present; A13 picks the highest-confidence correct crop per class, the 4 most confident errors and the 2 lowest-confidence crops below the operating threshold; the evaluation refuses to run twice (results file locally or on Drive) and refuses uncommitted code; each checkpoint must match its `metrics.json`; D-019 and D-012 subgroups are reported on validation as well as test (D-019 names both).
+- **Decided by:** me

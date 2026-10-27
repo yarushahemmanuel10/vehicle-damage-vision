@@ -91,3 +91,11 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Calibration and ECE.** A model is calibrated if, among predictions made with 90% confidence, about 90% are right. A reliability table groups predictions by confidence and compares each group's accuracy with its mean confidence. Expected calibration error (ECE) is the weighted average gap. An overconfident model has accuracy below confidence, which weakens confidence-based routing.
 
 **Fixing a selection rule in advance.** Choosing a threshold by looking at results invites picking whatever looks best. Writing the rule down first, then letting a script apply it, keeps the choice honest.
+
+**Bootstrap confidence interval.** Resample the test set with replacement many times, recompute the metric each time, and take the middle 95% of the results. The width shows how much the score could move with a different test sample of the same size.
+
+**Resampling photos, not crops.** Crops from the same photo share lighting, car and camera, so they are not independent. Resampling whole photos keeps them together; resampling crops would pretend there is more independent evidence than there is, and give intervals that are too narrow.
+
+**Paired bootstrap.** Two models scored on the same resamples: the interval of their difference. If it excludes zero, the gap is unlikely to be test-set noise. Pairing is more sensitive than comparing two separate intervals, because both models face the same hard and easy photos in each resample.
+
+**Testing once.** The test set is used a single time, after every choice is fixed. Looking at test results and then changing anything would turn the test set into a second validation set, and the reported score would be optimistic.
