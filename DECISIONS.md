@@ -261,3 +261,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** make the full repository public; keep everything private.
 - **Reason:** The CarDD licence forbids distributing all or part of the dataset; per-annotation files (box coordinates, labels, file names) are part of it.
 - **Decided by:** me
+
+### D-028 · Phase B epoch budget and validation frequency (from the B3 timing)
+- **Date:** 2026-10-27
+- **Choice:** 12 epochs, seed 42. Validation mAP every epoch (the B3 pass took 56 s, so D-026's rule applies). Step decay after epochs 8 and 11; warmup 500 iterations (D-026 amendment). No resume support: an interrupted run restarts from epoch 1; I accept the risk.
+- **Alternatives:** 16, 20 or 24 epochs; validation every 2 epochs; resume support.
+- **Reason:** B3 timing (`outputs/metrics/timing/fasterrcnn_r50_fpn_v1.json`): 370 s per training epoch plus 56 s per validation pass. 12 epochs give the same number of optimiser steps as the paper (8,448) at half its batch. Fewer epochs than the paper's 24, stated as a difference in the comparison.
+- **Decided by:** me

@@ -80,6 +80,21 @@ Source: `outputs/metrics/test_results.json` (commit `db685d1`). Test: 785 crops 
 - test, clean (other_class_ge50=0): accuracy 0.920, macro F1 0.929 (n = 710 crops, 374 photos)
 - test, contaminated (other_class_ge50=1): accuracy 0.880, macro F1 0.864 (n = 75 crops, 57 photos)
 
+
+## Phase B predictions (written before training)
+
+Test box mAP@50:95: 0.42–0.50. mAP@50: 0.60–0.68. Expected slightly below the paper's Mask R-CNN R50 box AP (49.2 / 66.3): Faster R-CNN has no mask supervision to sharpen its boxes, and the run is 12 epochs instead of 24.
+
+Per-class AP: highest for glass shatter and tire flat (above 0.75: large, distinctive, clear boundaries); lamp broken in the middle (~0.5); lowest for crack (below 0.25: thin, small, ambiguous extent), with dent and scratch also low (0.2–0.35), because their boundaries are fuzzy and IoU punishes loose boxes.
+
+AP by size: small very low (0.10–0.20), large highest (0.50–0.60), following the paper's pattern.
+
+Classification vs detection: detection scores will be far lower than the 0.94 classification macro F1, because detection must also find and tightly localise damage whose extent is ambiguous.
+
+Training curve: validation mAP improves quickly in the first epochs, with a visible jump after the first learning-rate drop (epoch 8), then plateaus.
+
+Note: written before training; informed by the paper's published baselines and general expectations discussed beforehand.
+
 ## My reflection
 
 _(to be written by me)_

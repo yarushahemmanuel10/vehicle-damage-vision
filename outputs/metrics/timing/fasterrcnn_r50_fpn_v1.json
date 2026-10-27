@@ -1,0 +1,19 @@
+{
+  "model": "fasterrcnn_r50_fpn_v1",
+  "seed": 42,
+  "git_commit": "253556641be36ceaec789613178578d4757b49e4",
+  "git_dirty": false,
+  "device": "Tesla T4",
+  "batch_size": 4,
+  "min_size": 800,
+  "max_size": 1000,
+  "amp": true,
+  "train_images": 2816,
+  "train_iterations": 704,
+  "val_images": 805,
+  "train_epoch_seconds": 369.6,
+  "val_predict_seconds": 52.9,
+  "val_coco_eval_seconds": 3.0,
+  "val_pass_seconds": 55.9,
+  "note": "first epoch of a fresh process: includes CUDA start-up, so slightly pessimistic"
+}

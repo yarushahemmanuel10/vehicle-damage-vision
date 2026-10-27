@@ -88,8 +88,8 @@ def train_epoch(model, loader, opt, scaler, dev, warm=None):
         if warm is not None and warm.last_epoch < warm.total_iters:
             warm.step()
         for k, v in losses.items():
-            sums[k] = sums.get(k, 0.0) + float(v)
-        sums["total"] = sums.get("total", 0.0) + float(loss)
+            sums[k] = sums.get(k, 0.0) + v.item()
+        sums["total"] = sums.get("total", 0.0) + loss.item()
         n += 1
     return {k: round(v / n, 5) for k, v in sums.items()}
 
@@ -178,9 +178,9 @@ def overfit(seed, steps=150, n=4):
     for step in range(steps + 1):
         with autocast(dev):
             loss = sum(model(imgs, targets).values())
-        losses.append(float(loss))
+        losses.append(loss.item())
         if step % 25 == 0:
-            print(f"step {step:3d}  loss {float(loss):.4f}", flush=True)
+            print(f"step {step:3d}  loss {losses[-1]:.4f}", flush=True)
         if step < steps:
             opt.zero_grad(set_to_none=True)
             scaler.scale(loss).backward()
