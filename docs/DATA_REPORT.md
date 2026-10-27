@@ -68,3 +68,17 @@ All numbers from `outputs/metrics/dup_calibration_train.json` and `outputs/metri
 - **Crops used for classification** (duplicates excluded): train 6211, val 1736, test 785.
 - Label index = CarDD category ID − 1: dent 0, scratch 1, crack 2, glass shatter 3, lamp broken 4, tire flat 5.
 - The test split is locked until the final evaluation (A12).
+
+## A13 · Confident errors (test, fine-tune seed 42)
+
+From `outputs/metrics/a13_examples.json` and `splits/crops_manifest.csv`. "Other-class max share" is the largest share of any other-class box that lies inside the crop's final window (D-014); `ge50` means at least half.
+
+| Example | Test ann | True | Predicted | Confidence | Other-class max share | ge50 |
+|---|---|---|---|---|---|---|
+| #7 | 101 | crack | dent | 1.0000 | 0.00 | 0 |
+| #8 | 249 | scratch | dent | 1.0000 | 0.00 | 0 |
+| #9 | 163 | crack | scratch | 0.9999 | 0.35 | 0 |
+| #10 | 379 | scratch | dent | 0.9997 | 0.35 | 0 |
+
+- **0 of the 4** most confident errors contain at least half of a box of another damage type; **2 of 4** contain some part of one. All 4 were auto-labelled at confidence ≥ 0.9997.
+- **My observation (private A13 figure):** #7 and #8 show a dominant dent around the labelled crack and scratch; #9 is a thin line on a dark panel; #10 shows both a dent and scratch marks; the two review cases show mixed damage.

@@ -48,6 +48,38 @@ Source: `outputs/metrics/val_summary.json` and `outputs/metrics/runs/*/val_probs
 - Fine-tune ResNet-18: dent → scratch (201); scratch → dent (121); crack → scratch (47)
 - ViT-B/16 linear probe: scratch → dent (229); dent → scratch (213); scratch → crack (143)
 
+## Actual results (test; added after the one-off test evaluation, predictions above unchanged)
+
+Source: `outputs/metrics/test_results.json` (commit `db685d1`). Test: 785 crops from 374 photos. My predictions were made for validation macro F1; they are repeated here for reference.
+
+| Model | Predicted (val) | Test macro F1, mean ± SD over 3 seeds | Seed 42 test macro F1 [95% CI, photo bootstrap] |
+|---|---|---|---|
+| Scratch ResNet-18 | 0.45–0.60 | 0.803 ± 0.011 | 0.801 [0.772, 0.829] |
+| Frozen ResNet-18 | 0.62–0.72 | 0.871 ± 0.004 | 0.866 [0.841, 0.890] |
+| Fine-tune ResNet-18 | 0.75–0.85 | 0.937 ± 0.008 | 0.928 [0.908, 0.946] |
+| ViT-B/16 linear probe | 0.70–0.80 | 0.884 ± 0.002 | 0.885 [0.862, 0.906] |
+
+**Paired differences, seed 42 (same 2000 photo resamples), 95% CI:**
+
+- Fine-tune ResNet-18 minus Scratch ResNet-18: macro F1 [+0.098, +0.157], accuracy [+0.122, +0.184]
+- Fine-tune ResNet-18 minus Frozen ResNet-18: macro F1 [+0.039, +0.084], accuracy [+0.050, +0.100]
+- Fine-tune ResNet-18 minus ViT-B/16 linear probe: macro F1 [+0.018, +0.069], accuracy [+0.031, +0.082]
+
+**Per-class test F1, fine-tune seed 42:**
+
+| dent | scratch | crack | glass shatter | lamp broken | tire flat |
+|---|---|---|---|---|---|
+| 0.893 (n=236) | 0.920 (n=307) | 0.842 (n=70) | 0.971 (n=71) | 0.958 (n=69) | 0.984 (n=32) |
+
+**Review at the operating threshold 0.98 (fine-tune seed 42):** 183 of 785 crops to review (23.3%); auto-labelled accuracy 0.977, macro F1 0.981.
+
+**D-019 clean vs contaminated (fine-tune seed 42):**
+
+- val, clean (other_class_ge50=0): accuracy 0.921, macro F1 0.942 (n = 1508 crops, 800 photos)
+- val, contaminated (other_class_ge50=1): accuracy 0.829, macro F1 0.835 (n = 228 crops, 167 photos)
+- test, clean (other_class_ge50=0): accuracy 0.920, macro F1 0.929 (n = 710 crops, 374 photos)
+- test, contaminated (other_class_ge50=1): accuracy 0.880, macro F1 0.864 (n = 75 crops, 57 photos)
+
 ## My reflection
 
 _(to be written by me)_

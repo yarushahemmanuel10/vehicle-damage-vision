@@ -99,3 +99,5 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Paired bootstrap.** Two models scored on the same resamples: the interval of their difference. If it excludes zero, the gap is unlikely to be test-set noise. Pairing is more sensitive than comparing two separate intervals, because both models face the same hard and easy photos in each resample.
 
 **Testing once.** The test set is used a single time, after every choice is fixed. Looking at test results and then changing anything would turn the test set into a second validation set, and the reported score would be optimistic.
+
+**Confident errors cannot be caught by a threshold.** On test, the four most confident errors of the fine-tune model had confidence above 0.9997, so any review threshold below that auto-labels them. Routing by confidence only helps if confidence is meaningful. Calibration, for example temperature scaling (dividing the logits by one constant fitted on validation), is the natural next step; it is future work here.
