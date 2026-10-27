@@ -1,0 +1,155 @@
+{
+  "split": "val",
+  "epochs": 20,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "status": {
+    "resnet18_scratch_seed42": "finished",
+    "resnet18_frozen_seed42": "finished",
+    "resnet18_finetune_seed42": "finished",
+    "vit_b16_probe_seed42": "finished",
+    "resnet18_scratch_seed43": "finished",
+    "resnet18_frozen_seed43": "finished",
+    "resnet18_finetune_seed43": "finished",
+    "vit_b16_probe_seed43": "finished",
+    "resnet18_scratch_seed44": "finished",
+    "resnet18_frozen_seed44": "finished",
+    "resnet18_finetune_seed44": "finished",
+    "vit_b16_probe_seed44": "finished"
+  },
+  "runs": [
+    {
+      "run": "resnet18_scratch_seed42",
+      "model": "resnet18_scratch",
+      "seed": 42,
+      "finished": true,
+      "best_val_macro_f1": 0.7858,
+      "best_epoch": 18,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_frozen_seed42",
+      "model": "resnet18_frozen",
+      "seed": 42,
+      "finished": true,
+      "best_val_macro_f1": 0.85042,
+      "best_epoch": 14,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_finetune_seed42",
+      "model": "resnet18_finetune",
+      "seed": 42,
+      "finished": true,
+      "best_val_macro_f1": 0.93405,
+      "best_epoch": 11,
+      "epochs_completed": 20
+    },
+    {
+      "run": "vit_b16_probe_seed42",
+      "model": "vit_b16_probe",
+      "seed": 42,
+      "finished": true,
+      "best_val_macro_f1": 0.86941,
+      "best_epoch": 19,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_scratch_seed43",
+      "model": "resnet18_scratch",
+      "seed": 43,
+      "finished": true,
+      "best_val_macro_f1": 0.80326,
+      "best_epoch": 19,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_frozen_seed43",
+      "model": "resnet18_frozen",
+      "seed": 43,
+      "finished": true,
+      "best_val_macro_f1": 0.84565,
+      "best_epoch": 14,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_finetune_seed43",
+      "model": "resnet18_finetune",
+      "seed": 43,
+      "finished": true,
+      "best_val_macro_f1": 0.92588,
+      "best_epoch": 13,
+      "epochs_completed": 20
+    },
+    {
+      "run": "vit_b16_probe_seed43",
+      "model": "vit_b16_probe",
+      "seed": 43,
+      "finished": true,
+      "best_val_macro_f1": 0.86872,
+      "best_epoch": 19,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_scratch_seed44",
+      "model": "resnet18_scratch",
+      "seed": 44,
+      "finished": true,
+      "best_val_macro_f1": 0.80166,
+      "best_epoch": 18,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_frozen_seed44",
+      "model": "resnet18_frozen",
+      "seed": 44,
+      "finished": true,
+      "best_val_macro_f1": 0.84986,
+      "best_epoch": 12,
+      "epochs_completed": 20
+    },
+    {
+      "run": "resnet18_finetune_seed44",
+      "model": "resnet18_finetune",
+      "seed": 44,
+      "finished": true,
+      "best_val_macro_f1": 0.92987,
+      "best_epoch": 18,
+      "epochs_completed": 20
+    },
+    {
+      "run": "vit_b16_probe_seed44",
+      "model": "vit_b16_probe",
+      "seed": 44,
+      "finished": true,
+      "best_val_macro_f1": 0.87231,
+      "best_epoch": 16,
+      "epochs_completed": 20
+    }
+  ],
+  "per_model": {
+    "resnet18_scratch": {
+      "seeds_finished": 3,
+      "mean": 0.7969,
+      "sd": 0.0097
+    },
+    "resnet18_frozen": {
+      "seeds_finished": 3,
+      "mean": 0.8486,
+      "sd": 0.0026
+    },
+    "resnet18_finetune": {
+      "seeds_finished": 3,
+      "mean": 0.9299,
+      "sd": 0.0041
+    },
+    "vit_b16_probe": {
+      "seeds_finished": 3,
+      "mean": 0.8701,
+      "sd": 0.0019
+    }
+  }
+}

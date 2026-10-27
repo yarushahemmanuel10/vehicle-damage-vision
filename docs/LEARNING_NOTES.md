@@ -83,3 +83,5 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Surviving a disconnect.** Colab can drop a session at any time. Each run writes its results after every epoch, copies them to Drive, and marks itself finished only at the end, so an interrupted run is visible as unfinished and can simply be run again.
 
 **The "scheduler.step() before optimizer.step()" warning.** With mixed precision, the GradScaler can skip the very first optimiser step while it calibrates its scale (the first gradients overflow in 16-bit). The scheduler still advances, so one learning-rate value out of roughly 2,000 is skipped. Harmless.
+
+**Validation loss rising while accuracy stays flat.** Late in fine-tuning the training loss approached zero and validation loss rose, while validation macro F1 stayed level. The model was still mostly right but became more confident, including on its mistakes. Confident mistakes are what a review threshold (A11) has to catch, so this affects how well routing by confidence can work.
