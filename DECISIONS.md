@@ -200,3 +200,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** Macro F1 is the headline metric, so the loss should not let scratch and dent dominate. One batch size for every run keeps the comparison like-for-like.
 - **Implementation details (AI proposed; items marked * changed by me):** validation loss uses the same class weights; frozen backbones stay in eval mode during training, so BatchNorm statistics do not change; cosine decay is stepped every batch down to 0; the best checkpoint (full state dict) is saved to Drive on every improvement; the timing run prints no validation scores; each DataLoader worker gets its own seeded augmentation generator; *a real run refuses uncommitted changes to tracked files, while untracked run outputs do not block it; *`metrics.json` is marked finished only when a run completes, and only finished runs (local or Drive copy) are refused, so an interrupted run can be restarted from epoch 1; *after every epoch the run folder (`metrics.json`, `val_probs.csv`) is copied to `MyDrive/vdv/runs/<run>/`.
 - **Decided by:** me
+
+### D-023 · Seeds and epoch budget (from the A6 timing)
+- **Date:** 2026-10-27
+- **Choice:** 3 seeds for every run, including the ViT probe (amends D-020's 1 seed); 20 epochs for every run. Seeds 42, 43, 44; seed 42 is the model carried forward (D-010).
+- **Alternatives:** 1 or 2 seeds; 10, 15 or 30 epochs; a longer budget for scratch.
+- **Reason:** From the A6 timing on the T4 (`outputs/metrics/timing/`): 28 s per epoch for the ResNet-18 fine-tune and 31 s per epoch for the ViT probe. Scratch will likely still be improving at 20 epochs; that is the expected cost of no pre-training, stated in my predictions, not compensated.
+- **Decided by:** me; seed values 42, 43, 44 AI-proposed

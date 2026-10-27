@@ -1,0 +1,16 @@
+{
+  "model": "resnet18_finetune",
+  "seed": 42,
+  "git_commit": "2c1eff009dd4aab759c4d92e91ff345eb95508ca",
+  "git_dirty": false,
+  "device": "Tesla T4",
+  "batch_size": 64,
+  "num_workers": 2,
+  "amp": true,
+  "train_batches": 98,
+  "val_batches": 28,
+  "train_epoch_seconds": 22.7,
+  "val_pass_seconds": 5.7,
+  "epoch_total_seconds": 28.4,
+  "note": "first epoch of a fresh process: includes CUDA start-up, so slightly pessimistic"
+}

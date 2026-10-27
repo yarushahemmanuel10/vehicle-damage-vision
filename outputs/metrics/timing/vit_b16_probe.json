@@ -1,0 +1,16 @@
+{
+  "model": "vit_b16_probe",
+  "seed": 42,
+  "git_commit": "2c1eff009dd4aab759c4d92e91ff345eb95508ca",
+  "git_dirty": false,
+  "device": "Tesla T4",
+  "batch_size": 64,
+  "num_workers": 2,
+  "amp": true,
+  "train_batches": 98,
+  "val_batches": 28,
+  "train_epoch_seconds": 24.3,
+  "val_pass_seconds": 6.3,
+  "epoch_total_seconds": 30.6,
+  "note": "first epoch of a fresh process: includes CUDA start-up, so slightly pessimistic"
+}
