@@ -182,4 +182,21 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:**
   - Flip: damage has no left/right meaning and cars are roughly symmetric. No vertical flip: photos have a consistent up/down.
   - Brightness: mimics lighting differences between sites and times of day. Kept at ±20% because light is the largest colour group (1298 of 2816 train photos, 46.1%, `outputs/metrics/data_verification.json`), and stronger brightening clips white paint and erases light scratches.
+- **Grid check (2026-10-27):** the augmentation grid showed light-coloured crops at ×1.2 still clear, but the sample had no light scratch on a white car, so the check is reassuring, not conclusive.
+- **Decided by:** me
+
+### D-022 · A6 training settings
+- **Date:** 2026-10-27
+- **Choice:**
+  - Class imbalance: class-weighted cross-entropy, weights = inverse train class frequency, normalised to mean 1, computed from the frozen train split. Same loss for every run.
+  - Model selection: the checkpoint from the epoch with the best validation macro F1; ties go to the earlier epoch. Validation is used only for this and for A11.
+  - Optimiser: AdamW, weight decay 1e-4. Head learning rate 1e-3; fine-tune backbone 1e-4 (×0.1 the head); scratch 1e-3 for all layers.
+  - Schedule: cosine decay, no warmup.
+  - Batch size: 64 for every run, so the comparison is like-for-like.
+  - Mixed precision (AMP): on.
+  - ViT: torchvision ViT-B/16 (ImageNet weights) as a linear probe (D-020). In the results it is compared with the frozen ResNet-18, since both keep their backbone frozen.
+  - Seed count and epoch budget: decided after the A6 timing.
+- **Alternatives:** plain cross-entropy; a weighted sampler; last-epoch checkpoint; SGD; constant or step schedule; other batch sizes; AMP off; ViT full fine-tune.
+- **Reason:** Macro F1 is the headline metric, so the loss should not let scratch and dent dominate. One batch size for every run keeps the comparison like-for-like.
+- **Implementation details (AI proposed; items marked * changed by me):** validation loss uses the same class weights; frozen backbones stay in eval mode during training, so BatchNorm statistics do not change; cosine decay is stepped every batch down to 0; the best checkpoint (full state dict) is saved to Drive on every improvement; the timing run prints no validation scores; each DataLoader worker gets its own seeded augmentation generator; *a real run refuses uncommitted changes to tracked files, while untracked run outputs do not block it; *`metrics.json` is marked finished only when a run completes, and only finished runs (local or Drive copy) are refused, so an interrupted run can be restarted from epoch 1; *after every epoch the run folder (`metrics.json`, `val_probs.csv`) is copied to `MyDrive/vdv/runs/<run>/`.
 - **Decided by:** me

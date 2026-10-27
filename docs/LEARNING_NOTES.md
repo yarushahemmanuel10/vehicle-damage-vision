@@ -61,3 +61,23 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Data augmentation.** Random, label-preserving changes to training images (here a mirror flip and a brightness change), so the model sees more variety than the raw data holds and relies less on incidental details. Only training data is augmented: validation and test must reflect unaltered photos, or the scores stop describing real use.
 
 **Saturation (clipping).** Pixel values live in 0 to 255. Brightening a white panel by 20% would push values above 255; they are clipped to 255, which turns detail into flat white. That is why the brightness range is kept small for a dataset with many light-coloured cars.
+
+**Class-weighted loss.** Cross-entropy where each class's errors are multiplied by a weight. With weights proportional to 1 / class frequency, a mistake on a rare class (tire flat) costs more than one on a common class (scratch), so the model cannot score well by favouring the common classes. It targets macro F1, which averages classes equally.
+
+**Model selection on validation.** After every epoch the model is scored on validation; the epoch with the best validation macro F1 is kept. Validation therefore influences the final model, which is why the test set stays untouched until the end.
+
+**AdamW and weight decay.** AdamW adapts the step size per parameter and applies weight decay separately from the gradient, gently pulling weights towards zero to reduce overfitting.
+
+**Cosine learning-rate schedule.** The learning rate starts at its set value and decreases along a cosine curve to zero by the last step: big steps early, fine adjustments at the end.
+
+**Mixed precision (AMP).** Most calculations run in 16-bit floats, which the T4's tensor cores process much faster; a gradient scaler prevents tiny gradients from rounding to zero.
+
+**Frozen backbone, linear probe, fine-tuning.** Frozen: the pre-trained network is a fixed feature extractor and only the final layer learns. Linear probe: the same idea, used to test how good a model's features are as they stand. Fine-tuning: every layer learns, the pre-trained ones at a lower learning rate so their knowledge is adjusted rather than overwritten.
+
+**BatchNorm in a frozen network.** BatchNorm layers keep running averages of their inputs, and update them whenever the network is in training mode, even if no weights change. A frozen backbone is therefore kept in evaluation mode while its head trains.
+
+**DataLoader workers and seeds.** Data is loaded by several worker processes in parallel. Each worker starts as a copy of the dataset, so without separate seeding every worker would draw the same "random" augmentations. Each worker gets its own generator, derived from the seeded loader.
+
+**Overfitting one batch.** A quick test of a training loop: on a single fixed batch, a working model and optimiser should drive the loss close to zero. If they cannot, something in the loop is broken.
+
+**Surviving a disconnect.** Colab can drop a session at any time. Each run writes its results after every epoch, copies them to Drive, and marks itself finished only at the end, so an interrupted run is visible as unfinished and can simply be run again.

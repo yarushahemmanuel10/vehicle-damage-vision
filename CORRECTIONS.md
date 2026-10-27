@@ -40,3 +40,21 @@ Every time something the AI assistant produced was wrong and was caught and fixe
 - **What was wrong:** `check_crop_cache()` only compared the version in `meta.json`. The zip stores `meta.json` before the image folders, so an interrupted unzip could leave a valid `meta.json` with missing PNGs, and training would have started on an incomplete crop set.
 - **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
 - **Fix:** The check also counts the PNGs on disk and refuses the cache unless the count equals `meta["n_crops"]`; a test covers "valid meta, missing PNGs → refused". The fix changed the crop-code version, so the crops were rebuilt; all counts are identical apart from the version.
+
+### C-007 · Run outputs would have blocked the next training run
+- **Date:** 2026-10-27
+- **What was wrong:** The A6 draft treated any `git status` output as "uncommitted changes", including untracked run outputs such as the timing JSON, so writing one run's results would have blocked the next run.
+- **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
+- **Fix:** The dirty check uses `git status --porcelain --untracked-files=no`: changes to tracked files (code) still block a run; untracked outputs do not. Covered by a test.
+
+### C-008 · An interrupted run could never be restarted
+- **Date:** 2026-10-27
+- **What was wrong:** The A6 draft refused any run whose `metrics.json` existed. `metrics.json` is written after every epoch, so a run interrupted mid-way (for example by a Colab disconnect) would have been permanently refused.
+- **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
+- **Fix:** `metrics.json` carries `"finished": true` only when the run completes, and only finished runs (local or Drive copy) are refused. Covered by a test.
+
+### C-009 · Run results did not survive a runtime reset
+- **Date:** 2026-10-27
+- **What was wrong:** The A6 draft wrote `metrics.json` and `val_probs.csv` only inside the repo on Colab's temporary disk, so a runtime reset before committing would have lost a run's results (only the checkpoint was on Drive).
+- **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
+- **Fix:** After every epoch, the run folder is copied to `MyDrive/vdv/runs/<run>/` on Drive.
