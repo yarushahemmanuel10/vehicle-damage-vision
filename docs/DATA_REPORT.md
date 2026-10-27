@@ -82,4 +82,4 @@ From `outputs/metrics/a13_examples.json` and `splits/crops_manifest.csv`. "Other
 
 - **0 of the 4** most confident errors contain at least half of a box of another damage type; **2 of 4** contain some part of one. All 4 were auto-labelled at confidence ≥ 0.9997.
 - **My observation (private A13 figure):** #7 and #8 show a dominant dent around the labelled crack and scratch; #9 is a thin line on a dark panel; #10 shows both a dent and scratch marks; the two review cases show mixed damage.
-- **My finding (visual inspection of a small sample):** in 2 of the 4 most confident errors, the crop visibly appears to contain dent damage that is not annotated as a separate box. This suggests some mixed damage is unlabelled, so the contamination flag likely underestimates mixed damage. Based on visual inspection of a small sample.
+- **My finding:** In 2 of the 4 most confident errors, the crop visibly appears to contain dent damage that is not annotated as a separate box; based on visual inspection of a small sample.

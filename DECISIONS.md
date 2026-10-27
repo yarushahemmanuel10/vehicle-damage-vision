@@ -235,3 +235,26 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** Resampling photos respects the dependence between crops from the same photo; paired differences on the same resamples show whether the gaps between methods are larger than test-set sampling noise.
 - **Implementation details (AI proposed):** bootstrap generator seed 42 with percentile intervals; within a resample, macro F1 averages over the classes present; A13 picks the highest-confidence correct crop per class, the 4 most confident errors and the 2 lowest-confidence crops below the operating threshold; the evaluation refuses to run twice (results file locally or on Drive) and refuses uncommitted code; each checkpoint must match its `metrics.json`; D-019 and D-012 subgroups are reported on validation as well as test (D-019 names both).
 - **Decided by:** me
+
+### D-026 · Phase B settings
+- **Date:** 2026-10-27
+- **Choice:**
+  1. Variant: `fasterrcnn_resnet50_fpn` (v1), COCO-pretrained; boxes only. Faster, and closer to the paper's ResNet-50 baseline.
+  2. Resolution: `min_size=800, max_size=1000`, so most images stay at native size (important for thin cracks).
+  3. Augmentation: horizontal flip only, with the boxes flipped too.
+  4. Optimiser: SGD, momentum 0.9, lr 0.005 (the paper's 0.01 at batch 8, scaled to batch 4), weight decay 1e-4, with step decay ×0.1 at about 2/3 and 11/12 of the epoch budget. AMP on.
+  5. Validation mAP: every epoch if a pass takes about a minute or less; otherwise every 2 epochs. Decided from the B3 timing.
+  6. Visualisations: score threshold 0.5; test images picked by worst and best per-image recall, plus the highest-scoring false positives. Private figures only.
+  - Split: the frozen image-level split, with the duplicate-excluded val photos removed (train 2,816; val 805; test 374, identical to the official test split). Detection annotation files are built at runtime and never committed (D-027).
+  - Same rules as Phase A: predictions before training; the test set is evaluated once; every number comes from committed outputs; the run folder is copied to Drive every epoch.
+- **Comparison baseline:** I verified the CarDD baselines against the paper (arXiv 2211.00945, Tables IV and V): Mask R-CNN ResNet-50 box AP 49.2, AP50 66.3, AP-small 16.2, AP-medium 41.8, AP-large 55.9; per-class box AP dent 27.0, scratch 25.3, crack 19.5, glass shatter 87.0, lamp broken 53.8, tire flat 82.6. The paper reports no Faster R-CNN. Differences to state: same test images; our validation has 5 fewer photos; a different training recipe (theirs: MMDetection, batch 8, 24 epochs, SGD lr 0.01 with ×0.1 steps, Tesla P100); Mask R-CNN trains its box head jointly with masks.
+- **Alternatives:** Faster R-CNN v2; MobileNetV3 backbone; default 800/1333 resizing; flip plus brightness; AdamW with cosine decay.
+- **Implementation details (AI proposed):** torchvision defaults (3 trainable backbone stages, frozen BatchNorm in the backbone, evaluation at box score ≥ 0.05 with up to 100 detections per image); validation mAP also at the last epoch; best checkpoint strictly better (ties keep the earlier epoch); training stops on a non-finite loss; per-class AP from pycocotools' precision array (IoU 0.50:0.95, all areas, 100 detections), as in the paper's Table V; learning-rate warmup supported (`--warmup-iters`) but off unless decided before B4.
+- **Decided by:** me
+
+### D-027 · Repository publication and the CarDD licence (Phase C)
+- **Date:** 2026-10-27
+- **Choice:** Option (b). The full repository stays private (it keeps the git history, including the predictions-first evidence). A clean public copy holds the code, docs, DECISIONS, PREDICTIONS and aggregate metrics, without `splits/crops_manifest.csv`, the `val_probs`/`test_probs` files or any other per-annotation data. That copy notes that these files regenerate from the scripts once CarDD access is granted. My statement links the public copy and offers the private repo on request. Phase B detection annotation files stay out of git from the start.
+- **Alternatives:** make the full repository public; keep everything private.
+- **Reason:** The CarDD licence forbids distributing all or part of the dataset; per-annotation files (box coordinates, labels, file names) are part of it.
+- **Decided by:** me

@@ -101,3 +101,19 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Testing once.** The test set is used a single time, after every choice is fixed. Looking at test results and then changing anything would turn the test set into a second validation set, and the reported score would be optimistic.
 
 **Confident errors cannot be caught by a threshold.** On test, the four most confident errors of the fine-tune model had confidence above 0.9997, so any review threshold below that auto-labels them. Routing by confidence only helps if confidence is meaningful. Calibration, for example temperature scaling (dividing the logits by one constant fitted on validation), is the natural next step; it is future work here.
+
+**Faster R-CNN.** A two-stage detector. A backbone (ResNet-50 with a Feature Pyramid Network) turns the image into feature maps at several scales. The Region Proposal Network (RPN) slides over them and proposes boxes likely to contain an object, starting from anchor boxes. The RoI heads then classify each proposal and refine its coordinates.
+
+**Anchor boxes.** Fixed reference boxes of several sizes and shapes placed all over the image. The RPN predicts, for each anchor, whether it contains an object and how to shift and stretch it to fit.
+
+**IoU (intersection over union).** The overlap of a predicted box and a true box, divided by the area they cover together: 1 is a perfect match, 0 is no overlap. A detection counts as correct at IoU 0.5 if it overlaps the true box by at least half in this sense.
+
+**Non-maximum suppression (NMS).** Detectors predict many overlapping boxes for one object. NMS keeps the highest-scoring box and removes others that overlap it too much (by IoU), so each object is reported once.
+
+**mAP.** For each class, precision is averaged over recall levels (AP); mAP averages AP over classes. mAP@50 counts a detection as correct at IoU ≥ 0.5; mAP@50:95 averages over IoU thresholds 0.50 to 0.95, so it also rewards tight boxes. COCO's AP-small, -medium and -large split the objects by area (here the mask area): small is below 32 × 32 pixels.
+
+**Flipping boxes with the image.** When an image is mirrored, every box must be mirrored too: the new left edge is the image width minus the old right edge. Forgetting this teaches the detector to look in the wrong place.
+
+**Frozen BatchNorm in detectors.** Detection batches are small (4 images here), too small for reliable BatchNorm statistics, so torchvision keeps the backbone's BatchNorm layers fixed at their pre-trained values.
+
+**Learning-rate warmup.** Starting at a small learning rate and increasing it linearly over the first few hundred steps, to avoid unstable early updates in large models trained with SGD.

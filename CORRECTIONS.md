@@ -58,3 +58,9 @@ Every time something the AI assistant produced was wrong and was caught and fixe
 - **What was wrong:** The A6 draft wrote `metrics.json` and `val_probs.csv` only inside the repo on Colab's temporary disk, so a runtime reset before committing would have lost a run's results (only the checkpoint was on Drive).
 - **How it was caught:** I checked and reviewed each issue and can explain it in my own words.
 - **Fix:** After every epoch, the run folder is copied to `MyDrive/vdv/runs/<run>/` on Drive.
+
+### C-010 · Detection metric test compared floats exactly
+- **Date:** 2026-10-27
+- **What was wrong:** The B-5 test asserted that a perfect detection scores exactly 1.0. pycocotools averages precision over 101 recall points, so the result was 0.9999999999999999 and the test failed, although the evaluation code was correct.
+- **How it was caught:** The test run in B-6 failed; I checked and reviewed the fix.
+- **Fix:** The test compares with `pytest.approx(1.0)`.
