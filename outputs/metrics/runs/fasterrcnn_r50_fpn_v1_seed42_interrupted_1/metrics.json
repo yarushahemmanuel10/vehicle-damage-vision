@@ -1,0 +1,235 @@
+{
+  "run": "fasterrcnn_r50_fpn_v1_seed42",
+  "seed": 42,
+  "git_commit": "e4a578bdc6656f07a20b60006fea1c24e3bf1715",
+  "git_dirty": false,
+  "manifest_sha256": "75c2afd5b7751df47e3bba02dd29a9a1995e5631ad05f1b425364c070d71fe0e",
+  "torch": "2.11.0+cu130",
+  "device": "Tesla T4",
+  "n_train_images": 2816,
+  "n_val_images": 805,
+  "settings": {
+    "model": "torchvision fasterrcnn_resnet50_fpn (v1), COCO_V1 weights, boxes only",
+    "min_size": 800,
+    "max_size": 1000,
+    "augmentation": "train only: horizontal flip p=0.5, boxes flipped",
+    "optimizer": "SGD",
+    "lr": 0.005,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "batch_size": 4,
+    "epochs": 12,
+    "lr_milestones": [
+      8,
+      11
+    ],
+    "lr_gamma": 0.1,
+    "warmup_iters": 500,
+    "amp": true,
+    "val_every": 1,
+    "selection": "best validation mAP@50:95; ties keep the earlier epoch; validation also at the last epoch",
+    "torchvision_defaults": "3 trainable backbone stages, frozen BatchNorm in the backbone, box score threshold 0.05, 100 detections per image"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "lr_at_start": 5e-06,
+      "train_losses": {
+        "loss_classifier": 0.22764,
+        "loss_box_reg": 0.17184,
+        "loss_objectness": 0.04684,
+        "loss_rpn_box_reg": 0.01832,
+        "total": 0.46464
+      },
+      "train_seconds": 370.4,
+      "val": {
+        "mAP_50_95": 0.29000038946516127,
+        "mAP_50": 0.5069681055946021,
+        "mAP_75": 0.3168584493361347,
+        "AP_small": 0.03706152108061696,
+        "AP_medium": 0.04364807540606313,
+        "AP_large": 0.29531393792625077,
+        "per_class_AP": {
+          "dent": 0.10006329517902797,
+          "scratch": 0.16431128244253118,
+          "crack": 0.057179101833650624,
+          "glass shatter": 0.6165671091287509,
+          "lamp broken": 0.2771834349369094,
+          "tire flat": 0.5246981132700975
+        },
+        "n_detections": 35408
+      },
+      "val_seconds": 55.8
+    },
+    {
+      "epoch": 2,
+      "lr_at_start": 0.005000000000000004,
+      "train_losses": {
+        "loss_classifier": 0.13999,
+        "loss_box_reg": 0.1451,
+        "loss_objectness": 0.02236,
+        "loss_rpn_box_reg": 0.0152,
+        "total": 0.32266
+      },
+      "train_seconds": 370.5,
+      "val": {
+        "mAP_50_95": 0.39289531029240743,
+        "mAP_50": 0.5811464294216429,
+        "mAP_75": 0.4204443319259977,
+        "AP_small": 0.06631133711650784,
+        "AP_medium": 0.0689646084806637,
+        "AP_large": 0.3998127033895757,
+        "per_class_AP": {
+          "dent": 0.15995081213746223,
+          "scratch": 0.1922775973252408,
+          "crack": 0.07768342357081061,
+          "glass shatter": 0.8336339203880331,
+          "lamp broken": 0.44714275797520764,
+          "tire flat": 0.6466833503576898
+        },
+        "n_detections": 14418
+      },
+      "val_seconds": 54.1
+    },
+    {
+      "epoch": 3,
+      "lr_at_start": 0.005000000000000004,
+      "train_losses": {
+        "loss_classifier": 0.12618,
+        "loss_box_reg": 0.14016,
+        "loss_objectness": 0.01559,
+        "loss_rpn_box_reg": 0.01348,
+        "total": 0.29541
+      },
+      "train_seconds": 367.8,
+      "val": {
+        "mAP_50_95": 0.3672322778284538,
+        "mAP_50": 0.5765069346748269,
+        "mAP_75": 0.39872244315570843,
+        "AP_small": 0.12425875468337005,
+        "AP_medium": 0.0994442534218866,
+        "AP_large": 0.3679255392067907,
+        "per_class_AP": {
+          "dent": 0.17745553227004426,
+          "scratch": 0.16485379228143685,
+          "crack": 0.0928327881296278,
+          "glass shatter": 0.5790740257639095,
+          "lamp broken": 0.52301835158374,
+          "tire flat": 0.6661591769419641
+        },
+        "n_detections": 31385
+      },
+      "val_seconds": 55.1
+    },
+    {
+      "epoch": 4,
+      "lr_at_start": 0.005000000000000004,
+      "train_losses": {
+        "loss_classifier": 0.1134,
+        "loss_box_reg": 0.13196,
+        "loss_objectness": 0.01334,
+        "loss_rpn_box_reg": 0.01257,
+        "total": 0.27127
+      },
+      "train_seconds": 367.4,
+      "val": {
+        "mAP_50_95": 0.4057281766108404,
+        "mAP_50": 0.6253648623661583,
+        "mAP_75": 0.4421079133499794,
+        "AP_small": 0.09558279280502,
+        "AP_medium": 0.09080621966244426,
+        "AP_large": 0.40373953809413904,
+        "per_class_AP": {
+          "dent": 0.14899057037104907,
+          "scratch": 0.21358819017312264,
+          "crack": 0.1335053759615959,
+          "glass shatter": 0.8026395395355281,
+          "lamp broken": 0.4803662399320052,
+          "tire flat": 0.6552791436917413
+        },
+        "n_detections": 18250
+      },
+      "val_seconds": 54.1
+    },
+    {
+      "epoch": 5,
+      "lr_at_start": 0.005000000000000004,
+      "train_losses": {
+        "loss_classifier": 0.10161,
+        "loss_box_reg": 0.12603,
+        "loss_objectness": 0.00925,
+        "loss_rpn_box_reg": 0.0117,
+        "total": 0.2486
+      },
+      "train_seconds": 368.0,
+      "val": {
+        "mAP_50_95": 0.4408183391605562,
+        "mAP_50": 0.6534034197262857,
+        "mAP_75": 0.4682341653087913,
+        "AP_small": 0.09034425242888523,
+        "AP_medium": 0.10598863304286847,
+        "AP_large": 0.43829788647126333,
+        "per_class_AP": {
+          "dent": 0.2117638466113786,
+          "scratch": 0.1962332975954089,
+          "crack": 0.12337439881704851,
+          "glass shatter": 0.8308324933858364,
+          "lamp broken": 0.5464341058397338,
+          "tire flat": 0.7362718927139313
+        },
+        "n_detections": 15423
+      },
+      "val_seconds": 54.1
+    },
+    {
+      "epoch": 6,
+      "lr_at_start": 0.005000000000000004,
+      "train_losses": {
+        "loss_classifier": 0.09103,
+        "loss_box_reg": 0.11888,
+        "loss_objectness": 0.00825,
+        "loss_rpn_box_reg": 0.01121,
+        "total": 0.22937
+      },
+      "train_seconds": 369.8,
+      "val": {
+        "mAP_50_95": 0.42263846094681073,
+        "mAP_50": 0.6422549609711544,
+        "mAP_75": 0.46164057584620904,
+        "AP_small": 0.10585641959842214,
+        "AP_medium": 0.12736169553477636,
+        "AP_large": 0.42665646475260377,
+        "per_class_AP": {
+          "dent": 0.1923257526529825,
+          "scratch": 0.2277753387736505,
+          "crack": 0.12340560312707535,
+          "glass shatter": 0.8034213343896686,
+          "lamp broken": 0.5245313553736602,
+          "tire flat": 0.6643713813638271
+        },
+        "n_detections": 13996
+      },
+      "val_seconds": 53.9
+    }
+  ],
+  "best_epoch": 5,
+  "best_val": {
+    "mAP_50_95": 0.4408183391605562,
+    "mAP_50": 0.6534034197262857,
+    "mAP_75": 0.4682341653087913,
+    "AP_small": 0.09034425242888523,
+    "AP_medium": 0.10598863304286847,
+    "AP_large": 0.43829788647126333,
+    "per_class_AP": {
+      "dent": 0.2117638466113786,
+      "scratch": 0.1962332975954089,
+      "crack": 0.12337439881704851,
+      "glass shatter": 0.8308324933858364,
+      "lamp broken": 0.5464341058397338,
+      "tire flat": 0.7362718927139313
+    },
+    "n_detections": 15423
+  },
+  "checkpoint": "/content/drive/MyDrive/vdv/checkpoints/fasterrcnn_r50_fpn_v1_seed42/best.pt",
+  "finished": false
+}

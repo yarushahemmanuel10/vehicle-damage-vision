@@ -268,3 +268,4 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Alternatives:** 16, 20 or 24 epochs; validation every 2 epochs; resume support.
 - **Reason:** B3 timing (`outputs/metrics/timing/fasterrcnn_r50_fpn_v1.json`): 370 s per training epoch plus 56 s per validation pass. 12 epochs give the same number of optimiser steps as the paper (8,448) at half its batch. Fewer epochs than the paper's 24, stated as a difference in the comparison.
 - **Decided by:** me
+- **Record (2026-10-28):** The first B4 attempt stopped after 6 of 12 epochs when Colab's free GPU usage limit was reached (night of 27 to 28 October). Per D-028 it is restarted from epoch 1. Its metrics are kept in `outputs/metrics/runs/fasterrcnn_r50_fpn_v1_seed42_interrupted_1/metrics.json` and were not used for any decision.
