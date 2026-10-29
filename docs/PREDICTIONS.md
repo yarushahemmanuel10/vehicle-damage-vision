@@ -97,4 +97,34 @@ Note: written before training; informed by the paper's published baselines and g
 
 ## My reflection
 
-_(to be written by me)_
+Phase A: the ranking was right, the levels were not.
+I predicted the order exactly: fine-tune > ViT probe > frozen > scratch. The fine-tune’s gain over the frozen backbone (8.1 points on validation) landed inside my 5–10 range, and scratch was still improving at epoch 20, as I expected. But every model scored above the top of my range, by 7 to 20 points. Scratch alone reached 0.80 validation macro F1, against my 0.45–0.60.
+
+I think I misjudged the difficulty of the task the model actually saw. I was imagining whole-photo damage classification, closer to harder benchmarks. In fact, each input was a crop centred on one annotated damage, with only a small margin of context. Several classes are visually distinctive at that scale (glass shatter, flat tyres, broken lamps), the crop pipeline made even tiny cracks readable through the minimum window, and ImageNet pre-training gave more than I credited. Getting the ranking right while missing the levels suggests I understood the relative effects of each method better than I could predict absolute performance. That is a useful thing to know about my own judgement.
+
+The seed spread was also smaller than I expected (0.2–0.3 points for the frozen models, 1 point for scratch), and the ViT probe beat the frozen ResNet by a clear margin, where I had thought the difference might be lost in the noise.
+
+What the test confirmed.
+
+The test results matched validation: the fine-tune scored 0.937 on test against 0.930 on validation, so choosing epochs and the threshold on validation showed no sign of inflating the results.
+Crack was the hardest class (F1 0.84, recall 0.80). Glass shatter (0.97) and flat tyres (0.98) were the easiest. Most errors ran between crack, dent and scratch, as I expected: at least 56 of the 66 test errors for the fine-tuned model, most often dent mistaken for scratch (23).
+At the threshold my rule picked in advance (0.98), 23% of test crops went to review, and the auto-labelled share reached 97.7% accuracy, meeting my 97% target on unseen data.
+I limited the brightness augmentation out of concern for light-coloured cars. On test, they scored slightly better than dark and coloured cars (the small unknown-colour group, 34 crops, scored higher still; no confidence intervals for subgroups), so that worry was not borne out.
+
+What surprised me.
+
+Confident errors. The model’s four most confident test errors all had confidence above 0.9997, so no review threshold could have caught them. Validation had already shown overconfidence (ECE 0.048, and validation loss rising while F1 stayed flat), but seeing concrete cases made the limitation clear: a review queue catches uncertain predictions, not confidently wrong ones.
+Mixed damage. Crops containing at least half of another damage type’s box were harder on both validation and test (test accuracy 0.88 against 0.92 for clean crops). But none of the four confident errors was flagged that way. Looking at them, two visibly appear to contain dent damage that isn’t annotated as a separate box. Some errors may come from labels as much as from the model, though that’s based on a small sample.
+
+What a repair business would care about.
+The headline for ABL is the trade-off: at 23% review, the remaining 77% of crops were labelled at 97.7% accuracy. That’s a real reduction in estimator workload, with a clear dial for how much risk to accept. The confident errors matter more than the average score, though, because they are exactly the mistakes nobody would check. The model also has no “undamaged” class: it assumes every crop contains damage, which a real workflow cannot assume.
+
+What I would do differently.
+
+Calibrate before setting a review threshold, for example with temperature scaling, so confidence means what it says.
+Handle mixed damage directly: multi-label classification or detection, plus clearer labelling guidance for damage types that overlap.
+Estimate difficulty from the model’s point of view (the actual crop, not the original photo), and anchor predictions against a known baseline before writing them.
+Plan time for data preparation realistically. Verification, crops and the duplicate check were worth doing, and they caught real problems (repeated annotation IDs across splits, a cropped duplicate), but they took longer than planned and forced me to cut scope.
+Use a stronger duplicate check: feature-based matching alongside the perceptual hash, since the hash cannot see cropped copies and my spot-check found one.
+
+Phase B: (to add after the detection results)
