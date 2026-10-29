@@ -117,3 +117,7 @@ Plain-English explanations of each new concept, written as it comes up. Revise f
 **Frozen BatchNorm in detectors.** Detection batches are small (4 images here), too small for reliable BatchNorm statistics, so torchvision keeps the backbone's BatchNorm layers fixed at their pre-trained values.
 
 **Learning-rate warmup.** Starting at a small learning rate and increasing it linearly over the first few hundred steps, to avoid unstable early updates in large models trained with SGD.
+
+## Reproduce validation before a one-off test run (B5)
+
+A one-off test run has no second chance, so the script first re-runs validation with the saved checkpoint and checks it gets the same mAP as during training. If it does, the checkpoint, the label mapping and the evaluation code are proven to be the ones that produced the training numbers, before the test set is touched. Exact equality isn't expected: float16 (mixed-precision) inference on a GPU can change the last digits, so a small tolerance (0.002) is allowed.

@@ -20,3 +20,6 @@ __pycache__/
 
 # --- OS ---
 .DS_Store
+
+# --- Private model outputs (per-image detections; D-027) ---
+/outputs/private/

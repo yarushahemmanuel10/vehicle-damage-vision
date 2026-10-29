@@ -269,3 +269,10 @@ One entry per design choice. "Decided by" is one of: *me* · *AI proposed / I ac
 - **Reason:** B3 timing (`outputs/metrics/timing/fasterrcnn_r50_fpn_v1.json`): 370 s per training epoch plus 56 s per validation pass. 12 epochs give the same number of optimiser steps as the paper (8,448) at half its batch. Fewer epochs than the paper's 24, stated as a difference in the comparison.
 - **Decided by:** me
 - **Record (2026-10-28):** The first B4 attempt stopped after 6 of 12 epochs when Colab's free GPU usage limit was reached (night of 27 to 28 October). Per D-028 it is restarted from epoch 1. Its metrics are kept in `outputs/metrics/runs/fasterrcnn_r50_fpn_v1_seed42_interrupted_1/metrics.json` and were not used for any decision.
+
+## D-029: B5 detection test evaluation protocol
+
+- **Date:** 2026-10-29
+- **Decision:** Evaluate the B4 checkpoint (epoch 12, chosen on validation) on the CarDD test set exactly once with `scripts/eval_det_test.py`. The script refuses to run if `det_test_results.json` exists locally or on Drive, if the repo has uncommitted changes, or if the checkpoint's epoch, seed and commit don't match the run's `metrics.json`. Before touching the test set it re-evaluates validation and stops if mAP@50:95 differs from the recorded 0.4931 by more than 0.002. The test COCO file is built at runtime and never committed; per-image detections are kept in a git-ignored folder (`outputs/private/`) and on Drive only (D-027). Results are reported side by side with the paper's Mask R-CNN R50 box AP (D-026), with the caveats.
+- **Why:** The test set is used once, so the checkpoint, label mapping and evaluation code are proven on validation first. The tolerance allows for mixed-precision inference not being bit-exact.
+- **Decided by:** me (the script's requirements); validation reproduction guard: AI proposed, I changed (added the 0.002 tolerance).
